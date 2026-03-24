@@ -18,7 +18,9 @@ const Hero = () => {
                     className="my-8"
                 >
                     <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8rem] font-sans font-black text-white tracking-tighter uppercase leading-[0.85]">
-                        Shafny<span className="text-gray-600 text-5xl sm:text-7xl md:text-8xl lg:text-[8rem]"> Hadhy</span>
+                        <span className="block sm:inline">Shafny</span>
+                        <span className="hidden sm:inline"> </span>
+                        <span className="block sm:inline text-gray-600 text-5xl sm:text-7xl md:text-8xl lg:text-[8rem]">Hadhy</span>
                     </h1>
                 </motion.div>
 
@@ -66,7 +68,7 @@ const Hero = () => {
                         <span className="text-3xl md:text-4xl font-black text-white mb-2">10+</span>
                         <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Projects<br />Completed</span>
                     </div>
-                    <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center md:items-start md:text-left hover:border-gray-600 transition-colors md:col-span-2 relative overflow-hidden group">
+                    <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center md:items-start md:text-left hover:border-gray-600 transition-colors col-span-2 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-r from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full h-full gap-4">
                             <div className="flex flex-col justify-center">
