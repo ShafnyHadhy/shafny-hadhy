@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
 
                 <div className="text-center md:text-left">
-                    <h3 className="text-2xl font-heading font-bold text-white mb-2">Shafny<span className="text-accent">.</span></h3>
+                    <h3 className="text-2xl font-sans font-bold text-white mb-2">Shafny<span className="text-accent">.</span></h3>
                     <p className="text-gray-400 text-sm">Made with ❤️ by Shafny</p>
                 </div>
 
