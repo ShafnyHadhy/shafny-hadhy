@@ -39,7 +39,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-base">LinkedIn</h4>
-                                    <a href="#" className="text-gray-400 text-[13px] hover:text-accent transition-colors">Connect on LinkedIn</a>
+                                    <a href="https://www.linkedin.com/in/shafnyhadhy" className="text-gray-400 text-[13px] hover:text-accent transition-colors">Connect on LinkedIn</a>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-base">GitHub</h4>
-                                    <a href="#" className="text-gray-400 text-[13px] hover:text-accent transition-colors">Follow on GitHub</a>
+                                    <a href="https://github.com/ShafnyHadhy" className="text-gray-400 text-[13px] hover:text-accent transition-colors">Follow on GitHub</a>
                                 </div>
                             </div>
                         </div>
