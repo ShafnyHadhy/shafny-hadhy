@@ -11,8 +11,8 @@ const projectsData = [
         solution: "A MERN-based system automating inventory, sales & workforce",
         tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
         image: "/cocosmart.png",
-        live: "#",
-        github: "#",
+        live: "https://cocosmart.vercel.app/",
+        github: "https://github.com/ShafnyHadhy/cocosmart-frontend",
         details: "Full details about CocoSmart..."
     },
     {
@@ -24,32 +24,44 @@ const projectsData = [
         tech: ["PHP", "MySQL", "JavaScript"],
         image: "/bill-reminder.png",
         live: "#",
-        github: "#",
+        github: "https://github.com/ShafnyHadhy/online-bill-and-event-reminder",
         details: "Full details about Bill Reminder..."
     },
     {
         id: 3,
-        title: "EasyMoney",
+        title: "iBank",
         category: "Web App",
-        problem: "People struggle to manage budgets",
-        solution: "Tracker with charts, budgets & goals",
-        tech: ["Laravel", "React", "PostgreSQL"],
+        problem: "People struggle to manage their bank accounts",
+        solution: "A Java based system for managing bank accounts",
+        tech: ["Java", "Bootstrap", "MySQL"],
         image: "/finance-tracker.png",
         live: "#",
         github: "#",
-        details: "Full details about Finance Tracker..."
+        details: "Full details about iBank..."
     },
     {
         id: 4,
-        title: "TaskMaster",
-        category: "Mobile App",
+        title: "Taskify",
+        category: "Webb App",
         problem: "Task management on the go",
-        solution: "React Native app for tracking daily tasks",
-        tech: ["React Native", "Firebase"],
+        solution: "React web app for tracking daily tasks",
+        tech: ["Laravel", "React", "MySQL"],
         image: "https://via.placeholder.com/600x400?text=TaskMaster", // Placeholder
         live: "#",
-        github: "#",
-        details: "Mobile task manager..."
+        github: "https://github.com/ShafnyHadhy/task-management-laravel",
+        details: "Full details about Taskify..."
+    },
+    {
+        id: 5,
+        title: "Revolve",
+        category: "Web App",
+        problem: "Waste management is manual & inefficient",
+        solution: "A MERN based systems to reduce waste and promote reuse",
+        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
+        image: "https://via.placeholder.com/600x400?text=TaskMaster", // Placeholder
+        live: "https://revolve-af.vercel.app/",
+        github: "https://github.com/ShafnyHadhy/AF-frontend-react",
+        details: "Full details about Revolve..."
     }
 ];
 
@@ -94,11 +106,11 @@ const ProjectCard = ({ project, onClick }) => {
                         {project.category}
                     </span>
                 </div>
-                
+
                 <p className="text-gray-400 text-[13px] md:text-sm mb-2 md:mb-0 max-w-2xl">
                     {project.solution}
                 </p>
-                
+
                 <div className="flex flex-wrap items-center gap-2 mt-1.5">
                     {project.tech.map((t, i) => (
                         <span key={i} className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300 flex items-center gap-1.5 hover:bg-white/10 transition-colors">
@@ -113,7 +125,7 @@ const ProjectCard = ({ project, onClick }) => {
                     <FaExternalLinkAlt size={12} />
                 </div>
             </div>
-            
+
             {/* Show category badge on mobile absolute top-right */}
             <span className="px-3 py-1 bg-accent/10 border border-accent/20 rounded text-[10px] text-accent font-bold uppercase tracking-widest sm:hidden absolute top-6 right-6">
                 {project.category}
