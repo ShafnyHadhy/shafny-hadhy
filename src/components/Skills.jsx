@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaJava, FaJs, FaPhp, FaReact, FaNodeJs, FaGitAlt, FaFigma } from 'react-icons/fa';
-import { SiSpringboot, SiLaravel, SiMysql, SiMongodb, SiPostman } from 'react-icons/si';
+import { SiSpringboot, SiLaravel, SiMysql, SiMongodb, SiPostman, SiExpress, SiPostgresql } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
 import { BsTypescript } from "react-icons/bs";
 
@@ -14,6 +14,7 @@ const skills = [
             { name: "TypeScript", icon: <BsTypescript />, level: 90 },
             { name: "PHP", icon: <FaPhp />, level: 75 },
             { name: "C++", icon: <span className="font-bold text-lg">C++</span>, level: 70 },
+            { name: "C", icon: <span className="font-bold text-lg">C</span>, level: 70 },
         ]
     },
     {
@@ -23,6 +24,7 @@ const skills = [
             { name: "Laravel", icon: <SiLaravel />, level: 75 },
             { name: "Node.js", icon: <FaNodeJs />, level: 80 },
             { name: "Spring Boot", icon: <SiSpringboot />, level: 65 },
+            { name: "Express.js", icon: <SiExpress />, level: 80 },
         ]
     },
     {
@@ -30,15 +32,18 @@ const skills = [
         items: [
             { name: "MySQL", icon: <SiMysql />, level: 85 },
             { name: "MongoDB", icon: <SiMongodb />, level: 80 },
+            { name: "PostgreSQL", icon: <SiPostgresql />, level: 75 },
         ]
     },
     {
         category: "Tools",
         items: [
             { name: "Git", icon: <FaGitAlt />, level: 90 },
+            { name: "GitHub", icon: <FaGithub />, level: 90 },
             { name: "Postman", icon: <SiPostman />, level: 85 },
             { name: "VS Code", icon: <VscCode />, level: 95 },
             { name: "Figma", icon: <FaFigma />, level: 70 },
+            { name: "Docker", icon: <FaDocker />, level: 70 },
         ]
     }
 ];
