@@ -44,8 +44,8 @@ const projectsData = [
         title: "Taskify",
         category: "Webb App",
         problem: "Task management on the go",
-        solution: "React web app for tracking daily tasks",
-        tech: ["Laravel", "React", "MySQL"],
+        solution: "Laravel web app for tracking daily tasks",
+        tech: ["Laravel", "Blade", "MySQL"],
         image: "https://via.placeholder.com/600x400?text=TaskMaster", // Placeholder
         live: "#",
         github: "https://github.com/ShafnyHadhy/task-management-laravel",
