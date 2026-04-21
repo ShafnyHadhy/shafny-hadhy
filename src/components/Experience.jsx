@@ -29,11 +29,11 @@ const Experience = () => {
                             <FaBriefcase size={12} />
                         </span>
                         <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
-                            <span className="text-accent text-xs font-bold uppercase tracking-wider">Sample Date (e.g. 2024 - Present)</span>
-                            <h4 className="text-lg font-bold text-white mt-1">Junior Developer Intern</h4>
-                            <p className="text-gray-400 text-[13px] mb-2">NexaTech (Sample)</p>
+                            <span className="text-accent text-xs font-bold uppercase tracking-wider">10/2025 - Present</span>
+                            <h4 className="text-lg font-bold text-white mt-1">Full Stack Developer Intern</h4>
+                            <p className="text-gray-400 text-[13px] mb-2">IT Starter Pvt Ltd</p>
                             <p className="text-gray-500 text-[13px]">
-                                Worked on full-stack web applications using React and Node.js. Collaborated with senior developers to implement new features and optimize application performance.
+                                Worked on full-stack web applications using React and Laravel. Collaborated with senior developers to implement new features and optimize application performance.
                             </p>
                         </div>
                     </motion.div>
@@ -50,7 +50,7 @@ const Experience = () => {
                         </span>
                         <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
                             <span className="text-accent text-xs font-bold uppercase tracking-wider">2023 - Present</span>
-                            <h4 className="text-lg font-bold text-white mt-1">Software Engineering Undergraduate</h4>
+                            <h4 className="text-lg font-bold text-white mt-1">BSc (Hons) in IT Specializing in Software Engineering</h4>
                             <p className="text-gray-400 text-[13px] mb-2">SLIIT</p>
                             <p className="text-gray-500 text-[13px]">
                                 Pursuing a degree in Software Engineering. Focusing on full-stack development, software architecture, and modern development practices.
