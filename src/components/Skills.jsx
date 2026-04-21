@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaJava, FaJs, FaPhp, FaReact, FaNodeJs, FaGitAlt, FaFigma } from 'react-icons/fa';
 import { SiSpringboot, SiLaravel, SiMysql, SiMongodb, SiPostman } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
+import { BiLogoTypescript } from 'react-icons/bi';
 
 const skills = [
     {
@@ -10,6 +11,7 @@ const skills = [
         items: [
             { name: "Java", icon: <FaJava />, level: 80 },
             { name: "JavaScript", icon: <FaJs />, level: 90 },
+            { name: "TypeScript", icon: <BiLogoTypescript />, level: 90 },
             { name: "PHP", icon: <FaPhp />, level: 75 },
             { name: "C++", icon: <span className="font-bold text-lg">C++</span>, level: 70 },
         ]
