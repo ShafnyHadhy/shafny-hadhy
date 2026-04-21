@@ -55,6 +55,7 @@ const Experience = () => {
                             <p className="text-gray-500 text-[13px]">
                                 Pursuing a degree in Software Engineering. Focusing on full-stack development, software architecture, and modern development practices.
                             </p>
+                            <span className="text-accent text-xs font-bold uppercase tracking-wider">CGPA: 3.6</span>
                         </div>
                     </motion.div>
 
