@@ -8,12 +8,11 @@ const Footer = () => {
 
                 <div className="text-center md:text-left">
                     <h3 className="text-2xl font-sans font-bold text-white mb-2">Shafny<span className="text-accent">.</span></h3>
-                    <p className="text-gray-400 text-sm">Made with ❤️ by Shafny</p>
                 </div>
 
                 <div className="flex gap-6">
-                    <a href="#" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaGithub /></a>
-                    <a href="#" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaLinkedin /></a>
+                    <a href="https://github.com/ShafnyHadhy" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaGithub /></a>
+                    <a href="https://www.linkedin.com/in/shafnyhadhy" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaLinkedin /></a>
                     <a href="#" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaTwitter /></a>
                     <a href="#" className="text-gray-400 hover:text-accent transition-colors text-xl"><FaInstagram /></a>
                 </div>

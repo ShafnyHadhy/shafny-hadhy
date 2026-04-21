@@ -31,9 +31,9 @@ const Hero = () => {
                     transition={{ duration: 0.6, delay: 0.3 }}
                     className="max-w-2xl mx-auto mb-12"
                 >
-                    <h2 className="text-sm md:text-base font-bold text-accent mb-4 uppercase tracking-[0.2em]">Software Engineer Intern</h2>
+                    <h2 className="text-sm md:text-base font-bold text-accent mb-4 uppercase tracking-[0.2em]">Full Stack Developer Intern</h2>
                     <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-                        Passionate about creating intuitive and engaging user experiences. I specialize in transforming complex problems into beautifully crafted, efficient products.
+                        Passionate about building scalable systems, integrating AI-driven features, and delivering practical solutions to real-world problems.
                     </p>
                 </motion.div>
 
@@ -61,8 +61,8 @@ const Hero = () => {
                     className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl"
                 >
                     <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
-                        <span className="text-3xl md:text-4xl font-black text-white mb-2">2+</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Years<br />Experience</span>
+                        <span className="text-3xl md:text-4xl font-black text-white mb-2">7+</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Months<br />Experience</span>
                     </div>
                     <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
                         <span className="text-3xl md:text-4xl font-black text-white mb-2">10+</span>
