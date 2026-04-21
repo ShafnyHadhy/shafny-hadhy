@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaJava, FaJs, FaPhp, FaReact, FaNodeJs, FaGitAlt, FaFigma, FaGithub, FaDocker } from 'react-icons/fa';
-import { SiSpringboot, SiLaravel, SiMysql, SiMongodb, SiPostman, SiExpress, SiPostgresql, SiTypescript } from 'react-icons/si';
+import { SiSpringboot, SiLaravel, SiMysql, SiMongodb, SiPostman, SiExpress, SiPostgresql, SiTypescript, SiN8N } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
 
 const skills = [
@@ -43,6 +43,7 @@ const skills = [
             { name: "VS Code", icon: <VscCode />, level: 95 },
             { name: "Figma", icon: <FaFigma />, level: 70 },
             { name: "Docker", icon: <FaDocker />, level: 70 },
+            { name: "n8n", icon: <SiN8N />, level: 70 },
         ]
     }
 ];
