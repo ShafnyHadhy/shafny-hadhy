@@ -5,63 +5,111 @@ import { FaGithub, FaExternalLinkAlt, FaTimes, FaCode } from 'react-icons/fa';
 const projectsData = [
     {
         id: 1,
-        title: "CocoSmart",
+        title: "CareBridge",
         category: "Web App",
-        problem: "Plantation management is manual & inefficient",
-        solution: "A MERN-based system automating inventory, sales & workforce",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
-        image: "/cocosmart.png",
-        live: "https://cocosmart.vercel.app/",
-        github: "https://github.com/ShafnyHadhy/cocosmart-frontend",
-        details: "Full details about CocoSmart..."
+        problem: "Accessing healthcare services is often inefficient, with manual appointment systems, lack of centralized medical records, and limited support for remote consultations.",
+        solution: "CareBridge is a microservices-based telemedicine platform that enables patients to book appointments, attend virtual consultations, manage medical records, and receive AI-assisted health insights through a scalable and modern system.",
+        tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Kubernetes", "Tailwind CSS"],
+        image: "/carebridge_dashboard.png",
+        live: "",
+        github: "https://github.com/ShafnyHadhy/health_care_appointment-microservices.git",
+        details: "CareBridge is a full-stack telemedicine platform designed to digitize and streamline healthcare interactions between patients, doctors, and administrators. The system allows patients to book and manage appointments, upload medical reports, view prescriptions, and join video consultations. Doctors can manage schedules, respond to appointment requests, and conduct virtual consultations, while administrators oversee system operations.\n\nThe platform is built using a microservices architecture, where each core functionality (authentication, patient management, doctor management, appointments, telemedicine, payments, notifications, and AI symptom checking) is developed as an independent service. These services are orchestrated through an API Gateway, enabling efficient request routing and improved scalability.\n\nThe frontend is developed using React with Tailwind CSS for a responsive and modern user interface, while the backend services are built with Node.js and Express. MongoDB is used for data storage, and the entire system is containerized using Docker for consistent development and deployment environments.\n\nTo enhance scalability and resilience, the application is designed to be deployed on Kubernetes, allowing independent scaling of services and better resource management. This project demonstrates my ability to design and implement a complex, real-world system using modern software architecture and DevOps practices."
     },
     {
         id: 2,
-        title: "BillOut",
+        title: "FinFlow",
         category: "Web App",
-        problem: "Users forget due dates",
-        solution: "Automated reminder + dashboard system",
-        tech: ["PHP", "MySQL", "JavaScript"],
-        image: "/bill-reminder.png",
+        problem: "Managing personal finances manually can be time-consuming and error-prone. Users often struggle to track expenses, categorize transactions, and gain meaningful insights into their financial habits.",
+        solution: "FinFlow is a full-stack finance tracking application that enables users to efficiently manage income and expenses, visualize spending patterns, and make informed financial decisions through an intuitive dashboard.",
+        tech: ["React", "TypeScript", "Laravel", "MySQL", "Tailwind CSS", "n8n"],
+        image: "/finflow_dashboard.png",
         live: "#",
-        github: "https://github.com/ShafnyHadhy/online-bill-and-event-reminder",
-        details: "Full details about Bill Reminder..."
+        github: "https://github.com/riyajkm/f-tracker",
+        details: "FinFlow is a full-stack personal finance management system developed to simplify the process of tracking and analyzing financial activities. The application allows users to record income and expenses, categorize transactions, and monitor their financial status in real-time.\n\nThe platform features a clean and responsive user interface, enabling users to easily navigate through dashboards, view summaries, and identify spending patterns. It also supports secure user authentication and structured data management to ensure reliability and data integrity.\n\nOn the technical side, the application is built using the MERN stack. React is used to create a dynamic and interactive frontend, while Node.js and Express handle backend services and API development. MongoDB is used for efficient data storage and retrieval, and Tailwind CSS ensures a modern and responsive design. Docker is used to containerize the application, enabling consistent development and deployment environments.\n\nThis project highlights my ability to build scalable full-stack applications, implement RESTful APIs, manage state effectively, and integrate modern development tools for real-world problem solving."
     },
     {
         id: 3,
-        title: "iBank",
+        title: "Revolve",
         category: "Web App",
-        problem: "People struggle to manage their bank accounts",
-        solution: "A Java based system for managing bank accounts",
-        tech: ["Java", "Bootstrap", "MySQL"],
-        image: "/finance-tracker.png",
-        live: "#",
-        github: "#",
-        details: "Full details about iBank..."
+        problem: "Waste management processes are often manual, inefficient, and lack proper tracking, leading to increased environmental impact and poor resource utilization.",
+        solution: "Revolve is a MERN stack-based waste management platform designed to streamline waste tracking, encourage recycling, and promote reuse through a structured and user-friendly system.",
+        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Google Maps API"],
+        image: "/revolve_dashboard.png",
+        live: "https://revolve-af.vercel.app/",
+        github: "https://github.com/ShafnyHadhy/AF-frontend-react",
+        details: "Revolve is a full-stack web application developed to address inefficiencies in traditional waste management systems. The platform enables users to manage, track, and categorize waste effectively while encouraging sustainable practices such as recycling and reuse.\n\nThe system provides an intuitive interface for users to log waste entries, monitor disposal activities, and gain insights into their environmental impact. It also supports role-based interactions, allowing administrators to oversee operations and maintain system integrity.\n\nOn the technical side, the application is built using the MERN stack, with React handling the frontend UI, Node.js and Express powering the backend APIs, and MongoDB managing data storage. Tailwind CSS is used for responsive and modern UI design.\n\nThis project demonstrates my ability to design and develop a complete full-stack solution, focusing on usability, scalability, and real-world problem solving."
     },
     {
         id: 4,
-        title: "Taskify",
-        category: "Webb App",
-        problem: "Task management on the go",
-        solution: "Laravel web app for tracking daily tasks",
-        tech: ["Laravel", "Blade", "MySQL"],
-        image: "https://via.placeholder.com/600x400?text=TaskMaster", // Placeholder
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/task-management-laravel",
-        details: "Full details about Taskify..."
+        title: "CocoSmart",
+        category: "Web App",
+        problem: "Coconut plantation management is often manual and fragmented, making it difficult to track inventory, manage sales, monitor finances, and coordinate daily operations efficiently.",
+        solution: "CocoSmart is a MERN stack-based plantation management system that digitizes and streamlines operations such as product management, order handling, financial tracking, and overall plantation workflows through a centralized and user-friendly platform.",
+        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+        image: "/cocosmart.png",
+        live: "https://cocosmart.vercel.app/",
+        github: "https://github.com/ShafnyHadhy/cocosmart-frontend",
+        details: "CocoSmart is a full-stack Coconut Plantation Management System developed as part of an undergraduate project at SLIIT, designed to simulate a real-world client-based application.\n\nI worked as the Team Lead and was mainly responsible for developing the Authentication system, Marketplace module, and Finance module. This included handling the full workflow from product management and order processing to financial tracking and reporting, ensuring secure and well-structured system operations.\n\nI also built the main dashboards and user interfaces used to manage products, orders, and financial data, focusing on usability and clarity. In addition, I contributed to database design, system architecture planning, and API structure to support scalable development.\n\nBeyond development, I managed Git/GitHub integration, version control, and coordinated team workflows to maintain smooth collaboration throughout the project.\n\nThis project highlights my skills in full-stack MERN development, system design, and team leadership while building a production-style application."
     },
     {
         id: 5,
-        title: "Revolve",
+        title: "BillOut",
         category: "Web App",
-        problem: "Waste management is manual & inefficient",
-        solution: "A MERN based systems to reduce waste and promote reuse",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
-        image: "https://via.placeholder.com/600x400?text=TaskMaster", // Placeholder
-        live: "https://revolve-af.vercel.app/",
-        github: "https://github.com/ShafnyHadhy/AF-frontend-react",
-        details: "Full details about Revolve..."
+        problem: "Users often struggle to manage multiple bills and important event reminders manually, leading to missed payments, poor financial tracking, and disorganized scheduling.",
+        solution: "BillOut is a full-stack bill management and event reminder system designed to help users track bills, set reminders, and organize important events in one centralized platform. It ensures timely notifications and better personal organization.",
+        tech: ["HTML", "CSS", "Bootstrap", "PHP", "MySQL"],
+        image: "/bill-reminder.png",
+        live: "#",
+        github: "https://github.com/ShafnyHadhy/online-bill-and-event-reminder",
+        details: "BillOut is a full-stack web application developed to help users manage their bills and important events efficiently. The system allows users to add bills, set due dates, and receive reminders for upcoming payments and events.\n\nThe application features a user-friendly dashboard where users can view all their pending and completed bills, along with scheduled reminders. It also includes authentication to ensure secure access to personal data.\n\nThe frontend is developed using HTML, CSS, and Bootstrap to provide a responsive and clean interface. The backend is built using Java with JSP and Servlets, following structured server-side processing. MySQL is used for storing user data, bills, and event schedules securely.\n\nThis project demonstrates my ability to build practical reminder-based systems, implement CRUD operations, manage user sessions, and design database-driven web applications."
+    },
+    {
+        id: 6,
+        title: "iBank",
+        category: "Web App",
+        problem: "Traditional banking processes often lack accessibility and require users to physically visit branches for basic services. Additionally, managing user accounts and administrative operations manually can be inefficient and prone to errors.",
+        solution: "iBank is a full-stack online banking system that enables users to securely manage their accounts and perform essential banking operations through a centralized web platform. The system also provides an administrative dashboard for efficient user and system management.",
+        tech: ["HTML", "CSS", "Bootstrap", "Java", "JSP", "Servlets", "MySQL"],
+        image: "/finance-tracker.png",
+        live: "#",
+        github: "https://github.com/ShafnyHadhy/online-banking-system",
+        details: "iBank is a full-stack web-based online banking system developed to simulate real-world banking functionalities in a secure and structured environment. The application allows users to register, log in, and manage their bank accounts through a user-friendly interface.\n\nThe system includes core features such as user authentication, account management, and an admin dashboard. Users can view and update their account details, while administrators have control over managing users and maintaining system data efficiently.\n\nThe frontend is built using HTML, CSS, and Bootstrap to ensure a responsive and intuitive user experience. The backend is developed using Java with JSP and Servlets, following the MVC architecture to separate concerns and maintain scalability. MySQL is used as the database for reliable data storage and management.\n\nThis project demonstrates my ability to develop full-stack web applications using Java-based technologies, implement authentication mechanisms, design structured databases, and build functional administrative systems. It also reflects my understanding of server-side rendering, session handling, and web application architecture."
+    },
+    {
+        id: 7,
+        title: "Taskify",
+        category: "Webb App",
+        problem: "Managing daily tasks efficiently can be challenging, especially when users rely on manual notes or disconnected tools that lack structure, reminders, and progress tracking.",
+        solution: "Taskify is a full-stack task management web application built using Laravel that helps users organize, track, and manage their daily tasks in a structured and efficient way. The system allows users to create tasks, categorize them, update their status, and monitor productivity through a clean and intuitive interface.",
+        tech: ["Laravel", "Blade", "MySQL"],
+        image: "/taskify_dashboard.png",
+        live: "#",
+        github: "https://github.com/ShafnyHadhy/task-management-laravel",
+        details: "Taskify is a personal productivity web application developed as a full-stack Laravel project. It demonstrates core web development concepts including authentication, CRUD operations, database relationships, and server-side rendering using Blade templates. The system is designed to improve daily productivity by allowing users to efficiently manage their tasks in one centralized platform."
+    },
+    {
+        id: 8,
+        title: "Mindly",
+        category: "Mobile App",
+        problem: "Many individuals struggle with managing stress, anxiety, and daily mental well-being due to lack of accessible tools, consistent habit tracking, and personalized emotional support systems.",
+        solution: "Mindly is a mobile-based mental wellness application designed to help users track their mood, practice mindfulness, and receive AI-assisted emotional insights. It provides daily mental health check-ins, guided meditation sessions, journaling features, and personalized wellness recommendations to improve emotional well-being.",
+        tech: ["Kotlin", "XML", "Android Studio", "RecyclerView", "ViewModel", "Room"],
+        image: "/mindly_app.png",
+        live: "#",
+        github: "https://github.com/ShafnyHadhy/mindly-personal-wellness-app",
+        details: "Mindly is a cross-platform mobile application focused on improving mental health awareness and emotional well-being. The app allows users to log their daily mood, track emotional patterns over time, and engage in guided mindfulness exercises such as meditation and breathing techniques.\n\nUsers can maintain a personal journal to express thoughts and reflections, while the system analyzes mood trends to provide personalized insights and suggestions. The app also includes AI-powered emotional support features that help users reflect on their mental state and suggest coping strategies.\n\nThe backend is built using Node.js and Express, with MongoDB used for storing user data, mood logs, and journal entries. Firebase is integrated for authentication and push notifications to ensure real-time engagement and reminders. The mobile frontend is developed using React Native to support both Android and iOS platforms with a consistent user experience.\n\nMindly demonstrates my ability to build user-centered mobile applications with a focus on emotional well-being, integrating AI-driven insights and modern mobile development practices."
+    },
+    {
+        id: 9,
+        title: "TrekkiwMate",
+        category: "Mobile App",
+        problem: "Travellers often struggle to plan trips efficiently, discover nearby attractions, and navigate unfamiliar locations due to fragmented travel information and lack of a centralized, user-friendly companion app.",
+        solution: "TrekkiwMate is a UI/UX-focused travel companion mobile application designed to enhance the travel experience by providing trip planning tools, destination discovery, and interactive navigation support. The app allows users to explore places of interest, create personalized travel itineraries, and access essential travel information in a clean and intuitive interface designed in Figma and implemented using Android XML layouts.",
+        tech: ["Figma", "Android Studio", "XML", "Kotlin", "Material Design", "View Binding"],
+        image: "/trekkiwmate_app.png",
+        live: "#",
+        github: "https://github.com/ShafnyHadhy/trekkieMate-travel-app",
+        details: "TrekkiwMate is a travel-focused mobile application designed with a strong emphasis on UI/UX principles and user-centered design. The project began with wireframing and prototyping in Figma, where key user flows such as trip planning, destination browsing, and itinerary management were designed for simplicity and ease of use.\n\nThe final UI was implemented in Android Studio using XML layouts and Material Design components to ensure a modern and consistent user experience. The app includes features such as destination listings, travel suggestions, itinerary creation, and smooth navigation between screens using RecyclerView and View Binding.\n\nThis project demonstrates my ability to translate UI/UX designs into functional Android applications while maintaining design consistency, usability, and performance. It highlights my skills in mobile UI design, layout structuring, and frontend Android development using XML."
     }
 ];
 
