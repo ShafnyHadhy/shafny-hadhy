@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaCode } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const projectsData = [
     {
@@ -182,7 +183,7 @@ const ProjectCard = ({ project, onClick }) => {
     );
 };
 
-const Projects = () => {
+const Projects = ({ limit = 3, showViewMore = true, showBackButton = false }) => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState("All");
     const [filteredProjects, setFilteredProjects] = useState(projectsData);
@@ -198,8 +199,15 @@ const Projects = () => {
     return (
         <div name="projects" className="w-full min-h-screen bg-primary py-16 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {showBackButton && (
+                    <div className="mb-6 z-20 relative">
+                        <Link to="/" className="text-accent hover:text-white font-bold flex w-fit items-center gap-2 transition-colors">
+                            ← Back to Portfolio
+                        </Link>
+                    </div>
+                )}
                 <div className="text-center mb-10 border-b border-white/5 pb-6">
-                    <h2 className="text-2xl font-sans font-bold text-white mb-3">Featured <span className="text-accent">Projects</span></h2>
+                    <h2 className="text-2xl font-sans font-bold text-white mb-3">{showBackButton ? 'All ' : 'Featured '}<span className="text-accent">Projects</span></h2>
                     <p className="text-gray-400 text-sm max-w-2xl mx-auto">
                         A showcase of my technical projects, ranging from web applications to full-stack solutions.
                     </p>
@@ -212,11 +220,23 @@ const Projects = () => {
                     className="flex flex-col gap-4 sm:gap-6 max-w-5xl mx-auto"
                 >
                     <AnimatePresence>
-                        {filteredProjects.map((project) => (
+                        {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project) => (
                             <ProjectCard key={project.id} project={project} onClick={setSelectedProject} />
                         ))}
                     </AnimatePresence>
                 </motion.div>
+
+                {showViewMore && filteredProjects.length > limit && (
+                    <div className="mt-12 text-center relative z-20 flex justify-center">
+                        <Link
+                            to="/projects"
+                            className="px-8 py-3 bg-primary text-accent font-normal rounded-md transition-all duration-300 hover:underline underline-offset-4"
+                            onClick={() => window.scrollTo(0, 0)}
+                        >
+                            View All Projects -{'>'}
+                        </Link>
+                    </div>
+                )}
             </div>
 
             {/* Project Modal */}

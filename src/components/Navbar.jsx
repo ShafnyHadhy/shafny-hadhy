@@ -34,8 +34,9 @@ const Navbar = () => {
         <nav className={`fixed w-full h-20 z-50 transition-all duration-300 ${scrolled ? 'bg-primary/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
             <div className="flex justify-between items-center h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center">
-                    <h1 className="text-3xl font-sans font-bold text-white cursor-pointer tracking-wider">
-                        Shafny<span className="text-accent">.</span>
+                    <h1 className="text-2xl tracking-tight cursor-pointer flex items-center group">
+                        <span className="font-bold text-gray-100 transition-colors duration-300 group-hover:text-white">Shafny</span>
+                        <span className="font-normal text-gray-500 ml-1.5 transition-colors duration-300 group-hover:text-gray-400">Hadhy</span>
                     </h1>
                 </div>
 
