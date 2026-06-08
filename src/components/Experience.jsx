@@ -29,16 +29,40 @@ const Experience = () => {
                             <FaBriefcase size={12} />
                         </span>
                         <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
-                            <span className="text-accent text-xs font-bold uppercase tracking-wider">10/2025 - Present</span>
-                            <h4 className="text-lg font-bold text-white mt-1">Full Stack Developer Intern</h4>
-                            <p className="text-gray-400 text-[13px] mb-2">IT Starter Pvt Ltd</p>
+                            <span className="text-accent text-xs font-bold uppercase tracking-wider">05/2026 - Present</span>
+                            <h4 className="text-lg font-bold text-white mt-1">Associate Software Engineer</h4>
+                            <p className="text-gray-400 text-[13px]">IT Starter Pvt Ltd</p>
+                            <p className="text-gray-500 text-[13px] mb-2">Colombo, Sri Lanka.</p>
                             <p className="text-gray-500 text-[13px]">
-                                Worked on full-stack web applications using React and Laravel. Collaborated with senior developers to implement new features and optimize application performance.
+                                Building and enhancing Recall using Next.js, React (TypeScript), Laravel, and MySQL. Fixing bugs, implementing 
+                                feature enhancements, developing mobile-responsive UI components, conducting testing and validation, and collaborating 
+                                with the manager on workflow, architecture decisions, and development priorities.
                             </p>
                         </div>
                     </motion.div>
 
                     {/* Item 2 */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="relative"
+                    >
+                        <span className="absolute -left-[41px] top-0 p-2 bg-primary border-2 border-accent/50 rounded-full text-accent">
+                            <FaBriefcase size={12} />
+                        </span>
+                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
+                            <span className="text-accent text-xs font-bold uppercase tracking-wider">10/2025 - 04/2026</span>
+                            <h4 className="text-lg font-bold text-white mt-1">Software Engineer Intern</h4>
+                            <p className="text-gray-400 text-[13px]">IT Starter Pvt Ltd</p>
+                            <p className="text-gray-500 text-[13px] mb-2">Colombo, Sri Lanka.</p>
+                            <p className="text-gray-500 text-[13px]">
+                                Designed and developed full-stack web features using React and Laravel, integrating RESTful APIs and database-driven functionality. Built backend business logic, authentication flows, and role-based access controls for finance and POS systems. Worked with MySQL databases handling data modelling, SQL queries, and performance optimisation, while collaborating in Agile teams using Git and GitHub for version control and code reviews. Utilised AI coding assistants and explored workflow automation and third-party integrations using n8n.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                    {/* Item 3 */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -55,7 +79,7 @@ const Experience = () => {
                             <p className="text-gray-500 text-[13px]">
                                 Pursuing a degree in Software Engineering. Focusing on full-stack development, software architecture, and modern development practices.
                             </p>
-                            <span className="text-accent text-xs font-bold uppercase tracking-wider">CGPA: 3.6</span>
+                            <span className="text-accent text-xs font-bold uppercase tracking-wider">CGPA: 3.6+</span>
                         </div>
                     </motion.div>
 
