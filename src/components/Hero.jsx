@@ -17,10 +17,10 @@ const Hero = () => {
                     transition={{ duration: 0.7, delay: 0.1 }}
                     className="my-8"
                 >
-                    <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8rem] font-sans font-black text-white tracking-tighter uppercase leading-[0.85]">
+                    <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] font-sans font-black text-white tracking-tighter uppercase leading-[0.85]">
                         <span className="block sm:inline">Shafny</span>
                         <span className="hidden sm:inline"> </span>
-                        <span className="block sm:inline text-gray-600 text-5xl sm:text-7xl md:text-8xl lg:text-[8rem]">Hadhy</span>
+                        <span className="block sm:inline text-gray-600 text-7xl sm:text-8xl md:text-9xl lg:text-[8rem]">Hadhy</span>
                     </h1>
                 </motion.div>
 
@@ -61,11 +61,11 @@ const Hero = () => {
                     className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl"
                 >
                     <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
-                        <span className="text-3xl md:text-4xl font-black text-white mb-2">9+</span>
+                        <span className="text-3xl md:text-4xl font-black text-white mb-2">10+</span>
                         <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Months<br />Experience</span>
                     </div>
                     <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
-                        <span className="text-3xl md:text-4xl font-black text-white mb-2">10+</span>
+                        <span className="text-3xl md:text-4xl font-black text-white mb-2">12+</span>
                         <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Projects<br />Completed</span>
                     </div>
                     <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center md:items-start md:text-left hover:border-gray-600 transition-colors col-span-2 relative overflow-hidden group">
