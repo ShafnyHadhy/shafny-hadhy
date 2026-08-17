@@ -20,7 +20,7 @@ const Hero = () => {
                     <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] font-sans font-black text-white tracking-tighter uppercase leading-[0.85]">
                         <span className="block sm:inline">Shafny</span>
                         <span className="hidden sm:inline"> </span>
-                        <span className="block sm:inline text-gray-600 text-7xl sm:text-7xl md:text-8xl lg:text-[8rem]">Hadhy</span>
+                        <span className="block sm:inline text-gray-600 text-7xl sm:text-8xl md:text-9xl lg:text-[8rem]">Hadhy</span>
                     </h1>
                 </motion.div>
 
