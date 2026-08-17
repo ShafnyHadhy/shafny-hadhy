@@ -147,7 +147,40 @@ const FilterTabs = ({ activeFilter, setFilter }) => {
     );
 };
 
-const ProjectCard = ({ project, onClick }) => {
+const ProjectCard = ({ project, onClick, index }) => {
+    const normalizedIndex = index % 4;
+    const isLargeLeft = normalizedIndex === 0;
+    const isSmallTopRight = normalizedIndex === 1 || normalizedIndex === 2;
+    const isWideBottomRight = normalizedIndex === 3;
+
+    let gridClasses = '';
+    let layoutClasses = 'flex-col';
+    let imageClasses = 'w-full border-b border-white/10';
+    let contentClasses = 'w-full flex-grow';
+    let titleClasses = 'font-bold text-gray-200 group-hover:text-accent transition-colors ';
+    let descClasses = 'text-gray-400 text-sm leading-relaxed ';
+
+    if (isLargeLeft) {
+        gridClasses = 'md:col-span-2 lg:col-span-2 lg:row-span-2';
+        imageClasses += ' h-64 lg:h-[55%]';
+        contentClasses += ' p-6 lg:p-8';
+        titleClasses += 'text-2xl lg:text-3xl';
+        descClasses += 'line-clamp-4 lg:line-clamp-none';
+    } else if (isWideBottomRight) {
+        gridClasses = 'md:col-span-2 lg:col-span-2';
+        layoutClasses = 'flex-col sm:flex-row';
+        imageClasses = 'w-full sm:w-[45%] h-48 sm:h-auto border-b sm:border-b-0 sm:border-r border-white/10';
+        contentClasses = 'w-full sm:w-[55%] justify-center p-6 lg:p-8';
+        titleClasses += 'text-xl lg:text-2xl';
+        descClasses += 'line-clamp-3';
+    } else { // isSmallTopRight
+        gridClasses = 'md:col-span-1 lg:col-span-1';
+        imageClasses += ' h-48 lg:h-40';
+        contentClasses += ' p-5';
+        titleClasses += 'text-lg lg:text-xl';
+        descClasses += 'line-clamp-2';
+    }
+
     return (
         <motion.div
             layout
@@ -156,46 +189,43 @@ const ProjectCard = ({ project, onClick }) => {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
             onClick={() => onClick(project)}
-            className="group w-full bg-surface border border-white/5 hover:border-accent/40 rounded-2xl p-5 md:p-6 cursor-pointer transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 relative"
+            className={`group w-full bg-surface border border-white/10 hover:border-accent/40 rounded-xl cursor-pointer transition-all duration-300 flex overflow-hidden relative ${gridClasses} ${layoutClasses}`}
         >
-            <div className="flex-grow flex flex-col gap-1.5 relative z-10 w-full md:w-auto">
+            {/* Image Container */}
+            <div className={`relative overflow-hidden bg-primary/20 flex-shrink-0 ${imageClasses}`}>
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+            </div>
+
+            {/* Content Container */}
+            <div className={`flex flex-col gap-3 ${contentClasses}`}>
                 <div className="flex items-center gap-3">
-                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-accent transition-colors">
+                    <h3 className={titleClasses}>
                         {project.title}
                     </h3>
-                    <span className="px-3 py-1 bg-accent/10 border border-accent/20 rounded text-[10px] text-accent font-bold uppercase tracking-widest hidden sm:inline-block">
-                        {project.category}
-                    </span>
                 </div>
 
-                <p className="text-gray-400 text-[13px] md:text-sm mb-2 md:mb-0 max-w-2xl">
+                <p className={descClasses}>
                     {project.solution}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                    {project.tech.map((t, i) => (
-                        <span key={i} className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300 flex items-center gap-1.5 hover:bg-white/10 transition-colors">
+                <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
+                    {project.tech.slice(0, isSmallTopRight ? 3 : 5).map((t, i) => (
+                        <span key={i} className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300 flex items-center gap-1.5 hover:bg-white/10 hover:text-accent transition-colors cursor-default">
                             <FaCode size={10} className="text-accentGreen" /> {t}
                         </span>
                     ))}
+                    {project.tech.length > (isSmallTopRight ? 3 : 5) && (
+                        <span className="text-[11px] px-2 py-1 rounded-full border border-transparent text-gray-500 font-medium hover:text-accent transition-colors cursor-default">
+                            +{project.tech.length - (isSmallTopRight ? 3 : 5)}
+                        </span>
+                    )}
                 </div>
             </div>
-
-            <div className="hidden md:flex items-center flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0 duration-300">
-                <div className="w-10 h-10 rounded-full border border-gray-700 bg-primary flex items-center justify-center text-white group-hover:bg-accent group-hover:text-primary group-hover:border-accent transition-colors shadow-lg">
-                    <FaExternalLinkAlt size={12} />
-                </div>
-            </div>
-
-            {/* Show category badge on mobile absolute top-right */}
-            <span className="px-3 py-1 bg-accent/10 border border-accent/20 rounded text-[10px] text-accent font-bold uppercase tracking-widest sm:hidden absolute top-6 right-6">
-                {project.category}
-            </span>
         </motion.div>
     );
 };
 
-const Projects = ({ limit = 3, showViewMore = true, showBackButton = false }) => {
+const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState("All");
     const [filteredProjects, setFilteredProjects] = useState(projectsData);
@@ -229,11 +259,11 @@ const Projects = ({ limit = 3, showViewMore = true, showBackButton = false }) =>
 
                 <motion.div
                     layout
-                    className="flex flex-col gap-4 sm:gap-6 max-w-5xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto"
                 >
                     <AnimatePresence>
-                        {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project) => (
-                            <ProjectCard key={project.id} project={project} onClick={setSelectedProject} />
+                        {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project, index) => (
+                            <ProjectCard key={project.id} project={project} onClick={setSelectedProject} index={index} />
                         ))}
                     </AnimatePresence>
                 </motion.div>
