@@ -7,7 +7,7 @@ const projectsData = [
     {
         id: 10,
         title: "Job Board SaaS API",
-        category: "API",
+        category: "Web App",
         problem: "Job platforms must handle high-volume, complex queries while maintaining strict security and performance under load. As a system scales, basic database lookups become bottlenecks, APIs become vulnerable to abuse, and debugging failures across concurrent requests becomes nearly impossible without proper observability.",
         solution: "I architected and deployed a highly scalable, backend-only SaaS API designed for high-performance job matching. The system leverages PostgreSQL's full-text search with GIN indexing to ensure lightning-fast query resolution across thousands of listings. To guarantee stability under load, I implemented a Redis-backed cache-aside pattern and strict route-specific rate limiting.",
         tech: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma 7", "Redis", "Docker", "JWT", "Google OAuth"],
@@ -127,7 +127,7 @@ const projectsData = [
 ];
 
 const FilterTabs = ({ activeFilter, setFilter }) => {
-    const filters = ["All", "Web App", "Mobile App", "API"];
+    const filters = ["All", "Web App", "Mobile App"];
 
     return (
         <div className="flex justify-center gap-4 mb-12 flex-wrap">
@@ -162,22 +162,22 @@ const ProjectCard = ({ project, onClick, index }) => {
 
     if (isLargeLeft) {
         gridClasses = 'md:col-span-2 lg:col-span-2 lg:row-span-2';
-        imageClasses += ' h-64 lg:h-[55%]';
-        contentClasses += ' p-6 lg:p-8';
-        titleClasses += 'text-2xl lg:text-3xl';
+        imageClasses += ' h-64 lg:h-[50%]';
+        contentClasses += ' p-5 lg:p-6';
+        titleClasses += 'text-xl lg:text-2xl';
         descClasses += 'line-clamp-4 lg:line-clamp-none';
     } else if (isWideBottomRight) {
         gridClasses = 'md:col-span-2 lg:col-span-2';
         layoutClasses = 'flex-col sm:flex-row';
         imageClasses = 'w-full sm:w-[45%] h-48 sm:h-auto border-b sm:border-b-0 sm:border-r border-white/10';
-        contentClasses = 'w-full sm:w-[55%] justify-center p-6 lg:p-8';
-        titleClasses += 'text-xl lg:text-2xl';
+        contentClasses = 'w-full sm:w-[55%] justify-center p-5 lg:p-6';
+        titleClasses += 'text-lg lg:text-xl';
         descClasses += 'line-clamp-3';
     } else { // isSmallTopRight
         gridClasses = 'md:col-span-1 lg:col-span-1';
-        imageClasses += ' h-48 lg:h-40';
-        contentClasses += ' p-5';
-        titleClasses += 'text-lg lg:text-xl';
+        imageClasses += ' h-40 lg:h-32';
+        contentClasses += ' p-4';
+        titleClasses += 'text-base lg:text-lg';
         descClasses += 'line-clamp-2';
     }
 
@@ -259,7 +259,7 @@ const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) =>
 
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
                 >
                     <AnimatePresence>
                         {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project, index) => (
@@ -304,20 +304,35 @@ const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) =>
                                 <FaTimes size={20} />
                             </button>
 
-                            {/* Left Side - Image */}
-                            <div className="w-full md:w-1/2 h-64 md:h-auto relative">
-                                <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent md:bg-gradient-to-r"></div>
+                            {/* Left Side - Image & Action Buttons */}
+                            <div className="w-full md:w-[45%] h-64 md:h-auto min-h-[320px] relative flex flex-col justify-end p-6 md:p-8">
+                                <img src={selectedProject.image} alt={selectedProject.title} className="absolute inset-0 w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-surface hidden md:block"></div>
+                                
+                                {/* Action Buttons overlay */}
+                                <div className="relative z-10 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 w-full mt-auto">
+                                    {selectedProject.live && selectedProject.live !== "#" && selectedProject.live !== "" && (
+                                        <a href={selectedProject.live} target="_blank" rel="noreferrer" className="flex-1 py-3 px-4 bg-accent text-primary font-bold rounded-lg text-center hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-lg text-sm">
+                                            <FaExternalLinkAlt size={14} /> Live Demo
+                                        </a>
+                                    )}
+                                    {selectedProject.github && selectedProject.github !== "#" && selectedProject.github !== "" && (
+                                        <a href={selectedProject.github} target="_blank" rel="noreferrer" className="flex-1 py-3 px-4 bg-black/40 backdrop-blur-md border border-white/20 text-white font-bold rounded-lg text-center hover:bg-white/10 transition-colors flex items-center justify-center gap-2 shadow-lg text-sm">
+                                            <FaGithub size={16} /> Source Code
+                                        </a>
+                                    )}
+                                </div>
                             </div>
 
                             {/* Right Side - Details */}
-                            <div className="w-full md:w-1/2 p-8 overflow-y-auto flex flex-col">
-                                <div className="mb-6 border-b border-white/10 pb-4">
-                                    <span className="px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-bold rounded mb-3 inline-block">{selectedProject.category}</span>
-                                    <h3 className="text-3xl font-sans font-bold text-white mb-2">{selectedProject.title}</h3>
+                            <div className="w-full md:w-[55%] p-6 md:p-10 overflow-y-auto flex flex-col">
+                                <div className="mb-6 border-b border-white/10 pb-6">
+                                    <span className="px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-bold rounded-full mb-3 inline-block">{selectedProject.category}</span>
+                                    <h3 className="text-2xl md:text-3xl font-sans font-bold text-white mb-2">{selectedProject.title}</h3>
                                 </div>
 
-                                <div className="space-y-6 mb-8 flex-grow">
+                                <div className="space-y-6 flex-grow pb-4">
                                     <div>
                                         <h4 className="text-white font-bold mb-2 flex items-center gap-2">The Problem</h4>
                                         <p className="text-gray-400 text-sm leading-relaxed">{selectedProject.problem}</p>
@@ -326,26 +341,33 @@ const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) =>
                                         <h4 className="text-white font-bold mb-2 flex items-center gap-2">The Solution</h4>
                                         <p className="text-gray-400 text-sm leading-relaxed">{selectedProject.solution}</p>
                                     </div>
+                                    
+                                    {selectedProject.details && (
+                                        <div>
+                                            <h4 className="text-white font-bold mb-2 flex items-center gap-2">Technical Details</h4>
+                                            <div className="text-gray-400 text-sm leading-relaxed space-y-2">
+                                                {selectedProject.details.split('\n\n').map((paragraph, idx) => {
+                                                    const boldParts = paragraph.split(/\*\*(.*?)\*\*/g);
+                                                    return (
+                                                        <p key={idx}>
+                                                            {boldParts.map((part, i) => i % 2 === 1 ? <strong key={i} className="text-gray-200">{part}</strong> : part)}
+                                                        </p>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div>
-                                        <h4 className="text-white font-bold mb-3">Technologies</h4>
+                                        <h4 className="text-white font-bold mb-3 mt-4">Technologies</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {selectedProject.tech.map((t, i) => (
-                                                <span key={i} className="px-3 py-1 rounded bg-white/5 border border-white/10 text-gray-300 text-sm">
-                                                    {t}
+                                                <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300 text-[11px] flex items-center gap-1.5 hover:bg-white/10 hover:text-accent transition-colors cursor-default">
+                                                    <FaCode size={10} className="text-accentGreen" /> {t}
                                                 </span>
                                             ))}
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className="flex gap-4 mt-auto border-t border-white/10 pt-6">
-                                    <a href={selectedProject.live} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-accent text-primary font-bold rounded text-center hover:opacity-90 transition-all">
-                                        Live Demo
-                                    </a>
-                                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className="flex-1 py-3 border border-white/20 text-white font-bold rounded text-center hover:bg-white/5 transition-all outline-none">
-                                        GitHub Repo
-                                    </a>
                                 </div>
                             </div>
                         </motion.div>
