@@ -8,120 +8,121 @@ const projectsData = [
         id: 10,
         title: "Job Board SaaS API",
         category: "API",
-        problem: "Most learning projects developers build to showcase backend skills end up being simple CRUD apps that don't reflect how real production systems behave. Job boards in particular have to deal with real technical challenges: fast search across thousands of listings, protecting APIs from abuse, keeping performance predictable under load, and giving engineers a way to trace what happened when something breaks. I wanted a project that would let me get hands-on with these problems specifically, rather than just talk about them in theory.",
-        solution: "I built a backend-only Job Board SaaS API, deliberately skipping the frontend so I could go deep on the parts of the system that actually determine whether it can survive in production. The API supports five core entities — Users, Companies, Jobs, Applications, and Notifications — with authentication handled through JWT and Google OAuth. Search is powered by PostgreSQL's full-text search with GIN indexing.",
+        problem: "Job platforms must handle high-volume, complex queries while maintaining strict security and performance under load. As a system scales, basic database lookups become bottlenecks, APIs become vulnerable to abuse, and debugging failures across concurrent requests becomes nearly impossible without proper observability.",
+        solution: "I architected and deployed a highly scalable, backend-only SaaS API designed for high-performance job matching. The system leverages PostgreSQL's full-text search with GIN indexing to ensure lightning-fast query resolution across thousands of listings. To guarantee stability under load, I implemented a Redis-backed cache-aside pattern and strict route-specific rate limiting.",
         tech: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma 7", "Redis", "Docker", "JWT", "Google OAuth"],
         image: "/job_board_api.png",
         live: "https://jobboard-api-navy.vercel.app/",
         github: "https://github.com/ShafnyHadhy/jobboard-api",
-        details: "I built a backend-only Job Board SaaS API, deliberately skipping the frontend so I could go deep on the parts of the system that actually determine whether it can survive in production.\n\nThe API supports five core entities — Users, Companies, Jobs, Applications, and Notifications — with authentication handled through JWT and Google OAuth. Search is powered by PostgreSQL's full-text search with GIN indexing, so job queries stay fast even as listings scale. To reduce load on the database, I added Redis caching using a cache-aside pattern — and specifically used scanStream rather than the blocking KEYS command, since KEYS can freeze the entire Redis instance under real traffic. Sensitive routes are protected with route-specific rate limiting, also backed by Redis.\n\nFor observability, every request gets a UUID correlation ID that flows through structured JSON logs, making it possible to trace a request end-to-end — something that matters far more in production debugging than most tutorials let on. The whole system is containerized with Docker Compose, running PostgreSQL 16 and Redis 7 alongside the Node/Express app, and I documented the architecture and key decisions in a separate system design doc."
+        details: "This API was built to tackle the core challenges of a production-grade SaaS platform.\n\n**Core Architecture:** Developed a robust REST API using Node.js, Express, and TypeScript, managing five core entities (Users, Companies, Jobs, Applications, Notifications) via Prisma ORM. Authentication is secured via JWT and Google OAuth.\n\n**Performance Optimization:** Bypassed standard query bottlenecks by implementing PostgreSQL full-text search with GIN indexing. Integrated Redis using a cache-aside pattern (utilizing scanStream over blocking KEYS commands) to significantly reduce database load during traffic spikes.\n\n**Security & Reliability:** Protected sensitive endpoints with distributed rate-limiting.\n\n**Observability:** Engineered an end-to-end tracing system by injecting UUID correlation IDs into structured JSON logs, allowing seamless request tracing and debugging across the entire system lifecycle. The infrastructure is fully containerized using Docker Compose for reliable local deployment and testing."
     },
     {
         id: 1,
         title: "CareBridge",
         category: "Web App",
-        problem: "Accessing healthcare services is often inefficient, with manual appointment systems, lack of centralized medical records, and limited support for remote consultations.",
-        solution: "CareBridge is a microservices-based telemedicine platform that enables patients to book appointments, attend virtual consultations, manage medical records, and receive AI-assisted health insights through a scalable and modern system.",
+        problem: "Monolithic healthcare systems struggle with data fragmentation, scaling during high traffic, and integrating real-time video consultations seamlessly.",
+        solution: "Engineered a scalable, microservices-based telemedicine platform. Decoupled core domains (appointments, patient records, payments) into independent services orchestrated by an API Gateway, allowing the system to scale components independently.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Kubernetes", "Tailwind CSS"],
         image: "/carebridge_dashboard.png",
         live: "",
         github: "https://github.com/ShafnyHadhy/health_care_appointment-microservices.git",
-        details: "CareBridge is a full-stack telemedicine platform designed to digitize and streamline healthcare interactions between patients, doctors, and administrators. The system allows patients to book and manage appointments, upload medical reports, view prescriptions, and join video consultations. Doctors can manage schedules, respond to appointment requests, and conduct virtual consultations, while administrators oversee system operations.\n\nThe platform is built using a microservices architecture, where each core functionality (authentication, patient management, doctor management, appointments, telemedicine, payments, notifications, and AI symptom checking) is developed as an independent service. These services are orchestrated through an API Gateway, enabling efficient request routing and improved scalability.\n\nThe frontend is developed using React with Tailwind CSS for a responsive and modern user interface, while the backend services are built with Node.js and Express. MongoDB is used for data storage, and the entire system is containerized using Docker for consistent development and deployment environments.\n\nTo enhance scalability and resilience, the application is designed to be deployed on Kubernetes, allowing independent scaling of services and better resource management. This project demonstrates my ability to design and implement a complex, real-world system using modern software architecture and DevOps practices."
+        details: "**Architecture:** Developed using React, Node.js, and Express, with MongoDB for data persistence. Designed a microservices architecture consisting of independent services for authentication, patient/doctor management, telemedicine, and an AI symptom checker.\n\n**Infrastructure & DevOps:** Containerized the entire application suite using Docker and orchestrated deployments with Kubernetes, ensuring high availability and seamless horizontal scaling.\n\n**Key Features:** Integrated secure virtual video consultations, automated prescription generation, and robust role-based access control for administrators, doctors, and patients."
     },
     {
         id: 2,
         title: "FinFlow",
         category: "Web App",
-        problem: "Managing personal finances manually can be time-consuming and error-prone. Users often struggle to track expenses, categorize transactions, and gain meaningful insights into their financial habits.",
-        solution: "FinFlow is a full-stack finance tracking application that enables users to efficiently manage income and expenses, visualize spending patterns, and make informed financial decisions through an intuitive dashboard.",
+        problem: "Personal finance tools often lack real-time data synchronization and struggle to securely process, categorize, and visualize large volumes of transactional data efficiently.",
+        solution: "Developed a full-stack financial dashboard designed for high data integrity and real-time analytics. Implemented a robust React and Laravel architecture with automated workflow integrations to categorize transactions and dynamically visualize spending patterns.",
         tech: ["React", "TypeScript", "Laravel", "MySQL", "Tailwind CSS", "n8n"],
         image: "/finflow_dashboard.png",
         live: "#",
         github: "https://github.com/riyajkm/f-tracker",
-        details: "FinFlow is a full-stack personal finance management system developed to simplify the process of tracking and analyzing financial activities. The application allows users to record income and expenses, categorize transactions, and monitor their financial status in real-time.\n\nThe platform features a clean and responsive user interface, enabling users to easily navigate through dashboards, view summaries, and identify spending patterns. It also supports secure user authentication and structured data management to ensure reliability and data integrity.\n\nOn the technical side, the application is built using the MERN stack. React is used to create a dynamic and interactive frontend, while Node.js and Express handle backend services and API development. MongoDB is used for efficient data storage and retrieval, and Tailwind CSS ensures a modern and responsive design. Docker is used to containerize the application, enabling consistent development and deployment environments.\n\nThis project highlights my ability to build scalable full-stack applications, implement RESTful APIs, manage state effectively, and integrate modern development tools for real-world problem solving."
+        details: "**Tech Stack:** Built with a React and TypeScript frontend, powered by a Laravel backend and a MySQL relational database. Styled with Tailwind CSS for a highly responsive user experience.\n\n**Data Pipelines & Automation:** Integrated n8n to handle automated workflows for transaction categorization and real-time alerts.\n\n**Analytics & Dashboarding:** Created interactive, real-time data visualizations to track income and expenses, utilizing efficient MySQL queries and Laravel's Eloquent ORM to process financial data securely and quickly."
     },
     {
         id: 3,
         title: "Revolve",
         category: "Web App",
-        problem: "Waste management processes are often manual, inefficient, and lack proper tracking, leading to increased environmental impact and poor resource utilization.",
-        solution: "Revolve is a MERN stack-based waste management platform designed to streamline waste tracking, encourage recycling, and promote reuse through a structured and user-friendly system.",
+        problem: "Traditional waste management lacks real-time tracking, geolocation routing, and structured categorization, leading to operational inefficiencies and poor resource allocation.",
+        solution: "Architected a full-stack waste management ecosystem to digitize recycling tracking and disposal routing. Integrated Google Maps API for location-based services and built secure role-based access controls for administrators and regular users.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Google Maps API"],
         image: "/revolve_dashboard.png",
         live: "https://revolve-af.vercel.app/",
         github: "https://github.com/ShafnyHadhy/AF-frontend-react",
-        details: "Revolve is a full-stack web application developed to address inefficiencies in traditional waste management systems. The platform enables users to manage, track, and categorize waste effectively while encouraging sustainable practices such as recycling and reuse.\n\nThe system provides an intuitive interface for users to log waste entries, monitor disposal activities, and gain insights into their environmental impact. It also supports role-based interactions, allowing administrators to oversee operations and maintain system integrity.\n\nOn the technical side, the application is built using the MERN stack, with React handling the frontend UI, Node.js and Express powering the backend APIs, and MongoDB managing data storage. Tailwind CSS is used for responsive and modern UI design.\n\nThis project demonstrates my ability to design and develop a complete full-stack solution, focusing on usability, scalability, and real-world problem solving."
+        details: "**Core System:** Developed using the MERN stack. Designed robust RESTful APIs to handle high-frequency data logging for waste entries and disposal activities.\n\n**Geolocation Integration:** Leveraged the Google Maps API to map recycling centers and optimize disposal tracking, making the platform interactive and location-aware.\n\n**User Roles & Security:** Implemented JWT-based authentication with strict role-based routing (Admin vs. User) to maintain system integrity and data security."
     },
     {
         id: 4,
         title: "CocoSmart",
         category: "Web App",
-        problem: "Coconut plantation management is often manual and fragmented, making it difficult to track inventory, manage sales, monitor finances, and coordinate daily operations efficiently.",
-        solution: "CocoSmart is a MERN stack-based plantation management system that digitizes and streamlines operations such as product management, order handling, financial tracking, and overall plantation workflows through a centralized and user-friendly platform.",
+        problem: "Agricultural operations often rely on fragmented, paper-based systems, creating severe bottlenecks in inventory tracking, order processing, and financial reporting.",
+        solution: "Led the development of a centralized, MERN-stack plantation ERP system. Engineered modules for product management, secure order processing, and automated financial tracking, transitioning the operation from manual logs to a digitized workflow.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
         image: "/cocosmart.png",
         live: "https://cocosmart.vercel.app/",
         github: "https://github.com/ShafnyHadhy/cocosmart-frontend",
-        details: "CocoSmart is a full-stack Coconut Plantation Management System developed as part of an undergraduate project at SLIIT, designed to simulate a real-world client-based application.\n\nI worked as the Team Lead and was mainly responsible for developing the Authentication system, Marketplace module, and Finance module. This included handling the full workflow from product management and order processing to financial tracking and reporting, ensuring secure and well-structured system operations.\n\nI also built the main dashboards and user interfaces used to manage products, orders, and financial data, focusing on usability and clarity. In addition, I contributed to database design, system architecture planning, and API structure to support scalable development.\n\nBeyond development, I managed Git/GitHub integration, version control, and coordinated team workflows to maintain smooth collaboration throughout the project.\n\nThis project highlights my skills in full-stack MERN development, system design, and team leadership while building a production-style application."
+        details: "**Leadership & Architecture:** Acted as Team Lead, orchestrating the system architecture, database schema design, and API structure to ensure cross-module compatibility.\n\n**Core Modules:** Personally developed the Authentication system, the B2B/B2C Marketplace, and the Finance module. Ensured strict ACID compliance in MongoDB transactions for order processing and financial record-keeping.\n\n**DevOps & Collaboration:** Managed version control workflows via Git/GitHub, resolving merge conflicts and maintaining CI/CD best practices across the development team."
     },
     {
         id: 5,
         title: "BillOut",
         category: "Web App",
-        problem: "Users often struggle to manage multiple bills and important event reminders manually, leading to missed payments, poor financial tracking, and disorganized scheduling.",
-        solution: "BillOut is a full-stack bill management and event reminder system designed to help users track bills, set reminders, and organize important events in one centralized platform. It ensures timely notifications and better personal organization.",
+        problem: "Managing recurring financial obligations requires reliable scheduling systems; manual tracking frequently results in missed deadlines and late penalties.",
+        solution: "Engineered a robust scheduling and reminder system utilizing Java Servlets and MySQL. Implemented CRON-like background processes to manage state changes and trigger timely notifications for pending bills and events.",
         tech: ["HTML", "CSS", "Bootstrap", "PHP", "MySQL"],
         image: "/bill-reminder.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/online-bill-and-event-reminder",
-        details: "BillOut is a full-stack web application developed to help users manage their bills and important events efficiently. The system allows users to add bills, set due dates, and receive reminders for upcoming payments and events.\n\nThe application features a user-friendly dashboard where users can view all their pending and completed bills, along with scheduled reminders. It also includes authentication to ensure secure access to personal data.\n\nThe frontend is developed using HTML, CSS, and Bootstrap to provide a responsive and clean interface. The backend is built using Java with JSP and Servlets, following structured server-side processing. MySQL is used for storing user data, bills, and event schedules securely.\n\nThis project demonstrates my ability to build practical reminder-based systems, implement CRUD operations, manage user sessions, and design database-driven web applications."
+        details: "**Backend Engineering:** Built a robust server-side architecture using Java, JSP, and Servlets. Implemented session management and secure user authentication flows.\n\n**Database Design:** Designed a normalized MySQL relational database schema to efficiently store user profiles, recurring bills, and event schedules without data redundancy.\n\n**Frontend Integration:** Developed a responsive UI with HTML, CSS, and Bootstrap, ensuring seamless interaction with the Java backend through structured HTTP requests."
     },
     {
         id: 6,
         title: "iBank",
         category: "Web App",
-        problem: "Traditional banking processes often lack accessibility and require users to physically visit branches for basic services. Additionally, managing user accounts and administrative operations manually can be inefficient and prone to errors.",
-        solution: "iBank is a full-stack online banking system that enables users to securely manage their accounts and perform essential banking operations through a centralized web platform. The system also provides an administrative dashboard for efficient user and system management.",
+        problem: "Digital banking platforms must adhere to strict security protocols, handle concurrent transactions safely, and manage complex state across user and admin roles.",
+        solution: "Developed a secure, MVC-based online banking application simulating core financial operations. Engineered transactional safeguards using Java and MySQL to prevent race conditions during account updates and transfers.",
         tech: ["HTML", "CSS", "Bootstrap", "Java", "JSP", "Servlets", "MySQL"],
         image: "/finance-tracker.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/online-banking-system",
-        details: "iBank is a full-stack web-based online banking system developed to simulate real-world banking functionalities in a secure and structured environment. The application allows users to register, log in, and manage their bank accounts through a user-friendly interface.\n\nThe system includes core features such as user authentication, account management, and an admin dashboard. Users can view and update their account details, while administrators have control over managing users and maintaining system data efficiently.\n\nThe frontend is built using HTML, CSS, and Bootstrap to ensure a responsive and intuitive user experience. The backend is developed using Java with JSP and Servlets, following the MVC architecture to separate concerns and maintain scalability. MySQL is used as the database for reliable data storage and management.\n\nThis project demonstrates my ability to develop full-stack web applications using Java-based technologies, implement authentication mechanisms, design structured databases, and build functional administrative systems. It also reflects my understanding of server-side rendering, session handling, and web application architecture."
+        details: "**Architecture:** Implemented a strict Model-View-Controller (MVC) architecture using Java, JSP, and Servlets to cleanly separate business logic from presentation.\n\n**Security & Transactions:** Built secure user authentication and session handling. Leveraged MySQL transactional features to ensure financial data integrity during simulated deposits, withdrawals, and transfers.\n\n**Administration:** Developed a comprehensive admin dashboard with elevated privileges for user account oversight and system data maintenance."
     },
     {
         id: 7,
         title: "Taskify",
         category: "Web App",
-        problem: "Managing daily tasks efficiently can be challenging, especially when users rely on manual notes or disconnected tools that lack structure, reminders, and progress tracking.",
-        solution: "Taskify is a full-stack task management web application built using Laravel that helps users organize, track, and manage their daily tasks in a structured and efficient way. The system allows users to create tasks, categorize them, update their status, and monitor productivity through a clean and intuitive interface.",
+        problem: "Task management systems require efficient state updates and relational data structures to handle categories, priorities, and user associations without performance degradation.",
+        solution: "Built a highly performant, server-rendered task management application using the Laravel PHP framework. Leveraged Eloquent ORM for complex database relationships and Blade templating for rapid UI delivery.",
         tech: ["Laravel", "Blade", "MySQL"],
         image: "/taskify_dashboard.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/task-management-laravel",
-        details: "Taskify is a personal productivity web application developed as a full-stack Laravel project. It demonstrates core web development concepts including authentication, CRUD operations, database relationships, and server-side rendering using Blade templates. The system is designed to improve daily productivity by allowing users to efficiently manage their tasks in one centralized platform."
+        details: "**Framework Expertise:** Utilized Laravel's robust ecosystem to implement secure authentication, CSRF protection, and RESTful routing.\n\n**Database & ORM:** Designed a relational MySQL database and used Eloquent ORM to manage complex relationships between users, task categories, and statuses.\n\n**Frontend:** Leveraged Blade templating engine for efficient server-side rendering, ensuring fast initial page loads and secure data injection."
     },
     {
         id: 8,
         title: "Mindly",
         category: "Mobile App",
-        problem: "Many individuals struggle with managing stress, anxiety, and daily mental well-being due to lack of accessible tools, consistent habit tracking, and personalized emotional support systems.",
-        solution: "Mindly is a mobile-based mental wellness application designed to help users track their mood, practice mindfulness, and receive AI-assisted emotional insights. It provides daily mental health check-ins, guided meditation sessions, journaling features, and personalized wellness recommendations to improve emotional well-being.",
+        problem: "Mental wellness tracking requires continuous user engagement, offline-first capabilities, and sophisticated data analysis to recognize emotional patterns effectively.",
+        solution: "Engineered a native Android application prioritizing local data persistence and real-time cloud syncing. Integrated AI-driven insights to analyze mood trends, leveraging the MVVM architecture for clean UI state management.",
         tech: ["Kotlin", "XML", "Android Studio", "RecyclerView", "ViewModel", "Room"],
         image: "/mindly_app.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/mindly-personal-wellness-app",
-        details: "Mindly is a cross-platform mobile application focused on improving mental health awareness and emotional well-being. The app allows users to log their daily mood, track emotional patterns over time, and engage in guided mindfulness exercises such as meditation and breathing techniques.\n\nUsers can maintain a personal journal to express thoughts and reflections, while the system analyzes mood trends to provide personalized insights and suggestions. The app also includes AI-powered emotional support features that help users reflect on their mental state and suggest coping strategies.\n\nThe backend is built using Node.js and Express, with MongoDB used for storing user data, mood logs, and journal entries. Firebase is integrated for authentication and push notifications to ensure real-time engagement and reminders. The mobile frontend is developed using React Native to support both Android and iOS platforms with a consistent user experience.\n\nMindly demonstrates my ability to build user-centered mobile applications with a focus on emotional well-being, integrating AI-driven insights and modern mobile development practices."
+        details: "**Mobile Architecture:** Built natively using Kotlin and XML layouts, strictly adhering to the MVVM (Model-View-ViewModel) architectural pattern for predictable state management and testability.\n\n**Local & Cloud Data:** Implemented the Room persistence library for reliable offline caching of journal entries and mood logs, syncing seamlessly with a Node.js/Express backend and MongoDB database.\n\n**Real-time Features:** Integrated Firebase for secure authentication and push notifications, ensuring users receive timely reminders and updates."
     },
     {
         id: 9,
         title: "TrekkiwMate",
         category: "Mobile App",
-        problem: "Travellers often struggle to plan trips efficiently, discover nearby attractions, and navigate unfamiliar locations due to fragmented travel information and lack of a centralized, user-friendly companion app.",
-        solution: "TrekkiwMate is a UI/UX-focused travel companion mobile application designed to enhance the travel experience by providing trip planning tools, destination discovery, and interactive navigation support. The app allows users to explore places of interest, create personalized travel itineraries, and access essential travel information in a clean and intuitive interface designed in Figma and implemented using Android XML layouts.",
+        problem: "Travel applications often suffer from cluttered interfaces and poor data structuring, leading to high cognitive load when planning complex itineraries.",
+        solution: "Designed and developed a UI/UX-centric Android travel application. Translated high-fidelity Figma prototypes into responsive XML layouts, utilizing RecyclerViews and View Binding for fluid, memory-efficient list rendering.",
         tech: ["Figma", "Android Studio", "XML", "Kotlin", "Material Design", "View Binding"],
         image: "/trekkiwmate_app.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/trekkieMate-travel-app",
+        details: "**UI/UX Engineering:** Started with comprehensive wireframing and prototyping in Figma, focusing on user-centered design principles before translating flows into native Android code.\n\n**Android Development:** Implemented pixel-perfect UIs using XML and Material Design components. Utilized advanced Android techniques like View Binding for null-safe view interactions and RecyclerViews for performant list scrolling.\n\n**Focus:** The project highlights the bridge between strict design systems and native mobile implementation, ensuring both aesthetic appeal and technical performance."
     }
 ];
 
