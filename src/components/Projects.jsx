@@ -5,6 +5,18 @@ import { Link } from 'react-router-dom';
 
 const projectsData = [
     {
+        id: 10,
+        title: "Job Board SaaS API",
+        category: "API",
+        problem: "Most learning projects developers build to showcase backend skills end up being simple CRUD apps that don't reflect how real production systems behave. Job boards in particular have to deal with real technical challenges: fast search across thousands of listings, protecting APIs from abuse, keeping performance predictable under load, and giving engineers a way to trace what happened when something breaks. I wanted a project that would let me get hands-on with these problems specifically, rather than just talk about them in theory.",
+        solution: "I built a backend-only Job Board SaaS API, deliberately skipping the frontend so I could go deep on the parts of the system that actually determine whether it can survive in production. The API supports five core entities — Users, Companies, Jobs, Applications, and Notifications — with authentication handled through JWT and Google OAuth. Search is powered by PostgreSQL's full-text search with GIN indexing.",
+        tech: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma 7", "Redis", "Docker", "JWT", "Google OAuth"],
+        image: "/job_board_api.png",
+        live: "https://jobboard-api-navy.vercel.app/",
+        github: "https://github.com/ShafnyHadhy/jobboard-api",
+        details: "I built a backend-only Job Board SaaS API, deliberately skipping the frontend so I could go deep on the parts of the system that actually determine whether it can survive in production.\n\nThe API supports five core entities — Users, Companies, Jobs, Applications, and Notifications — with authentication handled through JWT and Google OAuth. Search is powered by PostgreSQL's full-text search with GIN indexing, so job queries stay fast even as listings scale. To reduce load on the database, I added Redis caching using a cache-aside pattern — and specifically used scanStream rather than the blocking KEYS command, since KEYS can freeze the entire Redis instance under real traffic. Sensitive routes are protected with route-specific rate limiting, also backed by Redis.\n\nFor observability, every request gets a UUID correlation ID that flows through structured JSON logs, making it possible to trace a request end-to-end — something that matters far more in production debugging than most tutorials let on. The whole system is containerized with Docker Compose, running PostgreSQL 16 and Redis 7 alongside the Node/Express app, and I documented the architecture and key decisions in a separate system design doc."
+    },
+    {
         id: 1,
         title: "CareBridge",
         category: "Web App",
@@ -79,7 +91,7 @@ const projectsData = [
     {
         id: 7,
         title: "Taskify",
-        category: "Webb App",
+        category: "Web App",
         problem: "Managing daily tasks efficiently can be challenging, especially when users rely on manual notes or disconnected tools that lack structure, reminders, and progress tracking.",
         solution: "Taskify is a full-stack task management web application built using Laravel that helps users organize, track, and manage their daily tasks in a structured and efficient way. The system allows users to create tasks, categorize them, update their status, and monitor productivity through a clean and intuitive interface.",
         tech: ["Laravel", "Blade", "MySQL"],
@@ -110,12 +122,11 @@ const projectsData = [
         image: "/trekkiwmate_app.png",
         live: "#",
         github: "https://github.com/ShafnyHadhy/trekkieMate-travel-app",
-        details: "TrekkiwMate is a travel-focused mobile application designed with a strong emphasis on UI/UX principles and user-centered design. The project began with wireframing and prototyping in Figma, where key user flows such as trip planning, destination browsing, and itinerary management were designed for simplicity and ease of use.\n\nThe final UI was implemented in Android Studio using XML layouts and Material Design components to ensure a modern and consistent user experience. The app includes features such as destination listings, travel suggestions, itinerary creation, and smooth navigation between screens using RecyclerView and View Binding.\n\nThis project demonstrates my ability to translate UI/UX designs into functional Android applications while maintaining design consistency, usability, and performance. It highlights my skills in mobile UI design, layout structuring, and frontend Android development using XML."
     }
 ];
 
 const FilterTabs = ({ activeFilter, setFilter }) => {
-    const filters = ["All", "Web App", "Mobile App"];
+    const filters = ["All", "Web App", "Mobile App", "API"];
 
     return (
         <div className="flex justify-center gap-4 mb-12 flex-wrap">
