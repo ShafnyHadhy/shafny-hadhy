@@ -4,11 +4,19 @@ import { FaEnvelope, FaLinkedin, FaGithub, FaPaperPlane } from 'react-icons/fa';
 
 const Contact = () => {
     return (
-        <div name="contact" className="w-full min-h-screen bg-primary py-16">
+        <div name="contact" className="w-full bg-primary py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-10 border-b border-white/5 pb-6">
-                    <h2 className="text-2xl font-sans font-bold text-white mb-3">Contact <span className="text-accent">Me</span></h2>
-                    <p className="text-gray-400 text-sm max-w-2xl mx-auto">Get in touch with me for collaborations, opportunities, or just to say hi!</p>
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 border-b border-white/10 pb-8">
+                    <div>
+                        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-accent mb-4">
+                            <span className="h-px w-8 bg-accent"></span>
+                            Contact
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-heading font-medium text-white">Have a good problem<br /><span className="text-muted">to solve?</span></h2>
+                    </div>
+                    <p className="text-gray-400 text-sm max-w-md leading-relaxed">
+                        Open to thoughtful product work, engineering opportunities, and conversations about building better software.
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -20,7 +28,7 @@ const Contact = () => {
                         transition={{ duration: 0.5 }}
                         className="flex flex-col justify-center space-y-8"
                     >
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-all duration-300 group">
+                        <div className="bg-surface p-5 rounded-md border border-white/5 hover:border-accent/30 transition-all duration-300 group">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-primary rounded-full text-accent group-hover:bg-accent group-hover:text-primary transition-colors duration-300">
                                     <FaEnvelope size={20} />
@@ -32,7 +40,7 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-all duration-300 group">
+                        <div className="bg-surface p-5 rounded-md border border-white/5 hover:border-accent/30 transition-all duration-300 group">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-primary rounded-full text-accent group-hover:bg-accent group-hover:text-primary transition-colors duration-300">
                                     <FaLinkedin size={20} />
@@ -44,7 +52,7 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-all duration-300 group">
+                        <div className="bg-surface p-5 rounded-md border border-white/5 hover:border-accent/30 transition-all duration-300 group">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-primary rounded-full text-accent group-hover:bg-accent group-hover:text-primary transition-colors duration-300">
                                     <FaGithub size={20} />
@@ -62,7 +70,7 @@ const Contact = () => {
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-surface p-6 rounded-2xl border border-white/10"
+                        className="bg-surface p-6 rounded-md border border-white/10"
                     >
                         <form action="https://formspree.io/f/YOUR_ID" method="POST" className="space-y-4">
                             <div>
