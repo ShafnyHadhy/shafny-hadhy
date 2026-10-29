@@ -26,7 +26,7 @@ const About = () => {
                         {/* Profile Image Area */}
                         <div className="w-48 h-48 md:w-56 md:h-56 flex-shrink-0 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg group-hover:border-accent/40 group-hover:shadow-[0_0_20px_rgba(0,216,255,0.15)] transition-all duration-500 transform group-hover:-translate-y-1 bg-surface/50">
                             <img
-                                src="/myProf.jpeg"
+                                src="/me2.png"
                                 alt="Shafny Profile"
                                 className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                             />
