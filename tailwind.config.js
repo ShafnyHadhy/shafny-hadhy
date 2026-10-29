@@ -19,9 +19,10 @@ export default {
                 surface: "#111827", // Secondary background
                 accent: "#00f2ff", // Neon Blue
                 accentGreen: "#00ff88", // Neon Green
+                muted: "#68717d",
             },
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
+                sans: ['DM Sans', 'sans-serif'],
                 heading: ['Space Grotesk', 'sans-serif'],
             },
             animation: {

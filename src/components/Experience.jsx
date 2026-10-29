@@ -4,19 +4,23 @@ import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 
 const Experience = () => {
     return (
-        <div name="experience" className="w-full min-h-screen bg-primary py-16 flex items-center">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="text-center mb-10">
-                    <h2 className="text-2xl font-sans font-bold text-white mb-3">
-                        My <span className="text-accent">Experience</span>
-                    </h2>
-                    <p className="text-gray-400 text-sm max-w-2xl mx-auto">
-                        My professional journey and educational background
+        <div name="experience" className="w-full bg-primary py-24 flex items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 border-b border-white/10 pb-8">
+                    <div>
+                        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-accent mb-4">
+                            <span className="h-px w-8 bg-accent"></span>
+                            Experience
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-heading font-medium text-white">How I got here,<br /><span className="text-muted">and where I am going.</span></h2>
+                    </div>
+                    <p className="text-gray-400 text-sm max-w-md leading-relaxed">
+                        A steady progression from software engineering fundamentals to shipping production features with a team.
                     </p>
                 </div>
 
                 {/* Experience Timeline */}
-                <div className="space-y-8 border-l-2 border-white/10 ml-3 pl-8 relative">
+                <div className="space-y-6 border-l border-white/15 ml-3 pl-8 relative max-w-5xl">
 
                     {/* Item 1 */}
                     <motion.div
@@ -28,7 +32,7 @@ const Experience = () => {
                         <span className="absolute -left-[41px] top-0 p-2 bg-primary border-2 border-accent/50 rounded-full text-accent">
                             <FaBriefcase size={12} />
                         </span>
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
+                        <div className="bg-surface p-5 md:p-6 rounded-md border border-white/5 hover:border-accent/30 transition-colors">
                             <span className="text-accent text-xs font-bold uppercase tracking-wider">05/2026 - Present</span>
                             <h4 className="text-lg font-bold text-white mt-1">Associate Software Engineer</h4>
                             <p className="text-gray-400 text-[13px]">IT Starter Pvt Ltd</p>
@@ -51,7 +55,7 @@ const Experience = () => {
                         <span className="absolute -left-[41px] top-0 p-2 bg-primary border-2 border-accent/50 rounded-full text-accent">
                             <FaBriefcase size={12} />
                         </span>
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
+                        <div className="bg-surface p-5 md:p-6 rounded-md border border-white/5 hover:border-accent/30 transition-colors">
                             <span className="text-accent text-xs font-bold uppercase tracking-wider">10/2025 - 04/2026</span>
                             <h4 className="text-lg font-bold text-white mt-1">Software Engineer Intern</h4>
                             <p className="text-gray-400 text-[13px]">IT Starter Pvt Ltd</p>
@@ -72,7 +76,7 @@ const Experience = () => {
                         <span className="absolute -left-[41px] top-0 p-2 bg-primary border-2 border-accent/50 rounded-full text-accent">
                             <FaGraduationCap size={12} />
                         </span>
-                        <div className="bg-surface p-5 rounded-xl border border-white/5 hover:border-accent/30 transition-colors">
+                        <div className="bg-surface p-5 md:p-6 rounded-md border border-white/5 hover:border-accent/30 transition-colors">
                             <span className="text-accent text-xs font-bold uppercase tracking-wider">2023 - Present</span>
                             <h4 className="text-lg font-bold text-white mt-1">BSc (Hons) in IT Specializing in Software Engineering</h4>
                             <p className="text-gray-400 text-[13px] mb-2">SLIIT</p>
