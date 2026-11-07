@@ -1,13 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaCode } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const projectsData = [
     {
+        id: 11,
+        title: "Atlas Workflow Automation",
+        category: "Platform",
+        eyebrow: "Multi-tenant product",
+        problem: "Businesses need repeatable workflows without turning every process into a custom engineering project.",
+        solution: "A visual workflow platform for building, executing, and monitoring reliable business automations.",
+        tech: ["Laravel", "React", "PostgreSQL", "React Flow"],
+        image: "/job_board_api.png",
+        live: "",
+        github: "https://github.com/ShafnyHadhy/atlas-workflow-automation",
+        details: `**Product focus:** Designed around multi-tenant workflow creation, execution, and monitoring for teams.
+
+    **Engineering focus:** Combines a Laravel backend with a React interface and PostgreSQL persistence to model workflows as dependable, inspectable systems.`
+    },
+    {
+        id: 12,
+        title: "Solar Link Co-op",
+        category: "Mobile App",
+        eyebrow: "Community energy",
+        problem: "Shared solar projects need clearer coordination between members, roles, and the systems that manage them.",
+        solution: "A mobile co-operative experience for organizing solar participation with role-based access and a focused product flow.",
+        tech: ["React Native", "Expo", "TypeScript", "RBAC"],
+        image: "/revolve_dashboard.png",
+        live: "",
+        github: "https://github.com/ShafnyHadhy/solar-link-co-op-app",
+        details: `**Product focus:** Explores how a mobile experience can make shared solar initiatives easier to coordinate.
+
+    **Engineering focus:** Built with React Native and Expo, with TypeScript and role-based access control supporting a clear, maintainable application structure.`
+    },
+    {
+        id: 13,
+        title: "Invoice Reader",
+        category: "AI Workflow",
+        eyebrow: "Document intelligence",
+        problem: "Important invoice information is often trapped in documents that teams still process manually.",
+        solution: "A web application that uses AI-assisted extraction to turn invoice files into structured, usable records.",
+        tech: ["Laravel", "React", "Tailwind", "Gemini API"],
+        image: "/finflow_dashboard.png",
+        live: "",
+        github: "https://github.com/ShafnyHadhy/invoice-reader-laravel",
+        details: `**Product focus:** Converts uploaded invoice documents into structured data that can be reviewed and stored.
+
+    **Engineering focus:** Connects a Laravel application and React interface with the Google Gemini API, treating AI as part of a useful workflow rather than a decorative feature.`
+    },
+    {
         id: 10,
         title: "Job Board SaaS API",
         category: "Web App",
+        eyebrow: "Backend systems",
         problem: "Job platforms must handle high-volume, complex queries while maintaining strict security and performance under load. As a system scales, basic database lookups become bottlenecks, APIs become vulnerable to abuse, and debugging failures across concurrent requests becomes nearly impossible without proper observability.",
         solution: "I architected and deployed a highly scalable, backend-only SaaS API designed for high-performance job matching. The system leverages PostgreSQL's full-text search with GIN indexing to ensure lightning-fast query resolution across thousands of listings. To guarantee stability under load, I implemented a Redis-backed cache-aside pattern and strict route-specific rate limiting.",
         tech: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma 7", "Redis", "Docker", "JWT", "Google OAuth"],
@@ -20,6 +66,7 @@ const projectsData = [
         id: 1,
         title: "CareBridge",
         category: "Web App",
+        eyebrow: "Distributed product",
         problem: "Monolithic healthcare systems struggle with data fragmentation, scaling during high traffic, and integrating real-time video consultations seamlessly.",
         solution: "Engineered a scalable, microservices-based telemedicine platform. Decoupled core domains (appointments, patient records, payments) into independent services orchestrated by an API Gateway, allowing the system to scale components independently.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Kubernetes", "Tailwind CSS"],
@@ -32,6 +79,7 @@ const projectsData = [
         id: 2,
         title: "FinFlow",
         category: "Web App",
+        eyebrow: "Data product",
         problem: "Personal finance tools often lack real-time data synchronization and struggle to securely process, categorize, and visualize large volumes of transactional data efficiently.",
         solution: "Developed a full-stack financial dashboard designed for high data integrity and real-time analytics. Implemented a robust React and Laravel architecture with automated workflow integrations to categorize transactions and dynamically visualize spending patterns.",
         tech: ["React", "TypeScript", "Laravel", "MySQL", "Tailwind CSS", "n8n"],
@@ -44,6 +92,7 @@ const projectsData = [
         id: 3,
         title: "Revolve",
         category: "Web App",
+        eyebrow: "Circular economy",
         problem: "Traditional waste management lacks real-time tracking, geolocation routing, and structured categorization, leading to operational inefficiencies and poor resource allocation.",
         solution: "Architected a full-stack waste management ecosystem to digitize recycling tracking and disposal routing. Integrated Google Maps API for location-based services and built secure role-based access controls for administrators and regular users.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Google Maps API"],
@@ -56,6 +105,7 @@ const projectsData = [
         id: 4,
         title: "CocoSmart",
         category: "Web App",
+        eyebrow: "Operations platform",
         problem: "Agricultural operations often rely on fragmented, paper-based systems, creating severe bottlenecks in inventory tracking, order processing, and financial reporting.",
         solution: "Led the development of a centralized, MERN-stack plantation ERP system. Engineered modules for product management, secure order processing, and automated financial tracking, transitioning the operation from manual logs to a digitized workflow.",
         tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
@@ -68,6 +118,7 @@ const projectsData = [
         id: 5,
         title: "BillOut",
         category: "Web App",
+        eyebrow: "Scheduling system",
         problem: "Managing recurring financial obligations requires reliable scheduling systems; manual tracking frequently results in missed deadlines and late penalties.",
         solution: "Engineered a robust scheduling and reminder system utilizing Java Servlets and MySQL. Implemented CRON-like background processes to manage state changes and trigger timely notifications for pending bills and events.",
         tech: ["HTML", "CSS", "Bootstrap", "PHP", "MySQL"],
@@ -80,6 +131,7 @@ const projectsData = [
         id: 6,
         title: "iBank",
         category: "Web App",
+        eyebrow: "Financial system",
         problem: "Digital banking platforms must adhere to strict security protocols, handle concurrent transactions safely, and manage complex state across user and admin roles.",
         solution: "Developed a secure, MVC-based online banking application simulating core financial operations. Engineered transactional safeguards using Java and MySQL to prevent race conditions during account updates and transfers.",
         tech: ["HTML", "CSS", "Bootstrap", "Java", "JSP", "Servlets", "MySQL"],
@@ -92,6 +144,7 @@ const projectsData = [
         id: 7,
         title: "Taskify",
         category: "Web App",
+        eyebrow: "Productivity tool",
         problem: "Task management systems require efficient state updates and relational data structures to handle categories, priorities, and user associations without performance degradation.",
         solution: "Built a highly performant, server-rendered task management application using the Laravel PHP framework. Leveraged Eloquent ORM for complex database relationships and Blade templating for rapid UI delivery.",
         tech: ["Laravel", "Blade", "MySQL"],
@@ -104,6 +157,7 @@ const projectsData = [
         id: 8,
         title: "Mindly",
         category: "Mobile App",
+        eyebrow: "Wellness product",
         problem: "Mental wellness tracking requires continuous user engagement, offline-first capabilities, and sophisticated data analysis to recognize emotional patterns effectively.",
         solution: "Engineered a native Android application prioritizing local data persistence and real-time cloud syncing. Integrated AI-driven insights to analyze mood trends, leveraging the MVVM architecture for clean UI state management.",
         tech: ["Kotlin", "XML", "Android Studio", "RecyclerView", "ViewModel", "Room"],
@@ -116,6 +170,7 @@ const projectsData = [
         id: 9,
         title: "TrekkiwMate",
         category: "Mobile App",
+        eyebrow: "Mobile experience",
         problem: "Travel applications often suffer from cluttered interfaces and poor data structuring, leading to high cognitive load when planning complex itineraries.",
         solution: "Designed and developed a UI/UX-centric Android travel application. Translated high-fidelity Figma prototypes into responsive XML layouts, utilizing RecyclerViews and View Binding for fluid, memory-efficient list rendering.",
         tech: ["Figma", "Android Studio", "XML", "Kotlin", "Material Design", "View Binding"],
@@ -127,7 +182,7 @@ const projectsData = [
 ];
 
 const FilterTabs = ({ activeFilter, setFilter }) => {
-    const filters = ["All", "Web App", "Mobile App"];
+    const filters = ["All", "Platform", "AI Workflow", "Web App", "Mobile App"];
 
     return (
         <div className="flex justify-center gap-4 mb-12 flex-wrap">
@@ -189,7 +244,16 @@ const ProjectCard = ({ project, onClick, index }) => {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
             onClick={() => onClick(project)}
-            className={`group w-full bg-surface border border-white/10 hover:border-accent/40 rounded-xl cursor-pointer transition-all duration-300 flex overflow-hidden relative ${gridClasses} ${layoutClasses}`}
+            onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onClick(project);
+                }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`Open case study for ${project.title}`}
+            className={`group w-full bg-surface border border-white/10 hover:border-accent/40 focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-md cursor-pointer transition-all duration-300 flex overflow-hidden relative ${gridClasses} ${layoutClasses}`}
         >
             {/* Image Container */}
             <div className={`relative overflow-hidden bg-primary/20 flex-shrink-0 ${imageClasses}`}>
@@ -198,7 +262,8 @@ const ProjectCard = ({ project, onClick, index }) => {
 
             {/* Content Container */}
             <div className={`flex flex-col gap-3 ${contentClasses}`}>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col gap-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-accentGreen font-bold">{project.eyebrow}</span>
                     <h3 className={titleClasses}>
                         {project.title}
                     </h3>
@@ -220,6 +285,10 @@ const ProjectCard = ({ project, onClick, index }) => {
                         </span>
                     )}
                 </div>
+                <div className="flex items-center justify-between gap-3 pt-2 border-t border-white/10 text-[10px] uppercase tracking-[0.18em] text-gray-500 group-hover:text-accent transition-colors">
+                    <span>Read case study</span>
+                    <span aria-hidden="true" className="text-base leading-none transition-transform duration-300 group-hover:translate-x-1">-&gt;</span>
+                </div>
             </div>
         </motion.div>
     );
@@ -228,18 +297,12 @@ const ProjectCard = ({ project, onClick, index }) => {
 const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState("All");
-    const [filteredProjects, setFilteredProjects] = useState(projectsData);
-
-    useEffect(() => {
-        if (filter === "All") {
-            setFilteredProjects(projectsData);
-        } else {
-            setFilteredProjects(projectsData.filter(p => p.category === filter));
-        }
-    }, [filter]);
+    const filteredProjects = filter === "All"
+        ? projectsData
+        : projectsData.filter(project => project.category === filter);
 
     return (
-        <div name="projects" className="w-full min-h-screen bg-primary py-16 relative">
+        <div name="projects" className="w-full min-h-screen bg-primary py-24 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {showBackButton && (
                     <div className="mb-6 z-20 relative">
@@ -248,10 +311,16 @@ const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) =>
                         </Link>
                     </div>
                 )}
-                <div className="text-center mb-10 border-b border-white/5 pb-6">
-                    <h2 className="text-2xl font-sans font-bold text-white mb-3">{showBackButton ? 'All ' : 'Featured '}<span className="text-accent">Projects</span></h2>
-                    <p className="text-gray-400 text-sm max-w-2xl mx-auto">
-                        A showcase of my technical projects, ranging from web applications to full-stack solutions.
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 border-b border-white/10 pb-8">
+                    <div>
+                        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-accent mb-4">
+                            <span className="h-px w-8 bg-accent"></span>
+                            Selected work
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-heading font-medium text-white">Systems with a <span className="text-muted">reason to exist.</span></h2>
+                    </div>
+                    <p className="text-gray-400 text-sm max-w-md leading-relaxed">
+                        A focused selection of products, platforms, and experiments. Each one reflects a different question about how software can make a real workflow clearer, faster, or more reliable.
                     </p>
                 </div>
 
@@ -259,7 +328,7 @@ const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) =>
 
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto"
                 >
                     <AnimatePresence>
                         {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project, index) => (

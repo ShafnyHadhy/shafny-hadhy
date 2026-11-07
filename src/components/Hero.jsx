@@ -1,86 +1,83 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
+import { FaArrowDown, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 
 const Hero = () => {
     return (
-        <div name="home" className="w-full min-h-screen bg-primary flex flex-col justify-center items-center pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        <div name="home" className="hero-shell w-full min-h-screen bg-primary flex items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+            <div className="hero-grid absolute inset-0 pointer-events-none"></div>
+            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-0 -left-40 w-96 h-96 rounded-full bg-accentGreen/5 blur-[130px] pointer-events-none"></div>
 
-            <div className="max-w-5xl mx-auto w-full flex flex-col items-center justify-center relative z-10 text-center">
+            <div className="max-w-7xl mx-auto w-full relative z-10">
+                <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-accent mb-8">
+                    <span className="h-px w-10 bg-accent"></span>
+                    <span>Software engineer / builder</span>
+                </div>
 
-                {/* Main Headline */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.7, delay: 0.1 }}
-                    className="my-8"
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="max-w-5xl"
                 >
-                    <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] font-sans font-black text-white tracking-tighter uppercase leading-[0.85]">
-                        <span className="block sm:inline">Shafny</span>
-                        <span className="hidden sm:inline"> </span>
-                        <span className="block sm:inline text-gray-600 text-7xl sm:text-8xl md:text-9xl lg:text-[8rem]">Hadhy</span>
+                    <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-medium text-white tracking-tight leading-[0.95]">
+                        Building useful systems
+                        <span className="block text-muted">for a changing world.</span>
                     </h1>
                 </motion.div>
 
-                {/* Subheading & Bio */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="max-w-2xl mx-auto mb-12"
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                    className="max-w-2xl mt-8"
                 >
-                    <h2 className="text-sm md:text-base font-bold text-accent mb-4 uppercase tracking-[0.2em]">Associate Software Engineer</h2>
-                    <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-                        Passionate about building scalable systems, integrating AI-driven features, and delivering practical solutions to real-world problems.
+                    <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+                        I am Shafny Hadhy, an Associate Software Engineer and software engineering undergraduate focused on full-stack products, resilient APIs, and thoughtful AI-assisted workflows.
                     </p>
                 </motion.div>
 
-                {/* CTA Buttons */}
-                {/* <motion.div
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-20"
+                    transition={{ duration: 0.6, delay: 0.25 }}
+                    className="flex flex-col sm:flex-row gap-3 mt-10"
                 >
-                    <Link to="projects" smooth duration={500} offset={-80} className="px-6 py-3 bg-white text-primary font-bold rounded-lg hover:bg-gray-200 transition-colors duration-300 text-base cursor-pointer flex items-center justify-center gap-2">
-                        View My Work
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                    <Link to="projects" smooth duration={500} offset={-80} className="inline-flex items-center justify-center gap-3 px-5 py-3 bg-accent text-primary font-bold rounded-md hover:bg-white transition-colors duration-300 cursor-pointer">
+                        Explore selected work <FaArrowDown size={13} />
                     </Link>
-                    <Link to="contact" smooth duration={500} offset={-80} className="px-6 py-3 border border-gray-700 bg-surface/50 text-white font-bold rounded-lg hover:border-gray-500 hover:bg-surface transition-colors duration-300 text-base cursor-pointer">
-                        Let's Talk
-                    </Link>
-                </motion.div> */}
+                    <a href="https://github.com/ShafnyHadhy" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-3 px-5 py-3 border border-white/15 text-white font-bold rounded-md hover:border-accent hover:text-accent transition-colors duration-300">
+                        <FaGithub size={16} /> GitHub profile
+                    </a>
+                </motion.div>
 
-                {/* Stats / Bento Grid Row */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl"
+                    transition={{ duration: 0.6, delay: 0.35 }}
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 border border-white/10 mt-20 max-w-3xl"
                 >
-                    <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
-                        <span className="text-3xl md:text-4xl font-black text-white mb-2">10+</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Months<br />Experience</span>
+                    <div className="bg-surface p-5 sm:p-6">
+                        <span className="text-3xl font-heading text-white block mb-2">12+</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Products and<br />experiments</span>
                     </div>
-                    <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center hover:border-gray-600 transition-colors">
-                        <span className="text-3xl md:text-4xl font-black text-white mb-2">12+</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Projects<br />Completed</span>
+                    <div className="bg-surface p-5 sm:p-6">
+                        <span className="text-3xl font-heading text-white block mb-2">4</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Product areas<br />explored</span>
                     </div>
-                    <div className="bg-surface border border-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center md:items-start md:text-left hover:border-gray-600 transition-colors col-span-2 relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-gradient-to-r from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full h-full gap-4">
-                            <div className="flex flex-col justify-center">
-                                <span className="text-accent text-[10px] font-bold uppercase tracking-widest mb-1.5">Currently Building</span>
-                                <h3 className="text-lg sm:text-xl font-bold text-white leading-tight">Modern Web<br />Experiences</h3>
-                            </div>
-                            <div className="w-12 h-12 rounded-full border border-gray-700 bg-primary flex items-center justify-center group-hover:border-accent group-hover:bg-accent/10 transition-colors flex-shrink-0">
-                                <svg className="w-5 h-5 text-accent transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                            </div>
-                        </div>
+                    <div className="bg-surface p-5 sm:p-6">
+                        <span className="text-3xl font-heading text-accent block mb-2">Now</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Building with<br />curiosity</span>
                     </div>
                 </motion.div>
+
+                <div className="flex items-center gap-5 mt-10 text-gray-500">
+                    <span className="text-[10px] uppercase tracking-[0.25em]">Find me</span>
+                    <a href="https://github.com/ShafnyHadhy" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-accent transition-colors"><FaGithub /></a>
+                    <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-accent transition-colors"><FaLinkedinIn /></a>
+                </div>
 
             </div>
         </div>
