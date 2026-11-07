@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaDownload, FaGoogleDrive } from 'react-icons/fa';
+import { FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
 
 const Resume = () => {
     return (
@@ -22,18 +22,18 @@ const Resume = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10 mt-6">
                         <a
                             href="/resume.pdf"
-                            download
+                            download="Shafny_Hadhy_Resume.pdf"
                             className="px-6 py-2.5 bg-accent text-primary font-bold rounded-full hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 text-[14px]"
                         >
                             <FaDownload /> Download PDF
                         </a>
                         <a
-                            href="#"
+                            href="/resume.pdf"
                             target="_blank"
                             rel="noreferrer"
                             className="px-6 py-2.5 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 text-[14px]"
                         >
-                            <FaGoogleDrive /> View on Drive
+                            <FaExternalLinkAlt /> View PDF
                         </a>
                     </div>
                 </motion.div>
