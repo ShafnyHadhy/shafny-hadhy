@@ -1,50 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/inter-tight/wght.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-primary text-gray-300 font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-primary;
-    background-image: linear-gradient(135deg, rgba(0, 242, 255, 0.025), transparent 35%), linear-gradient(315deg, rgba(0, 255, 136, 0.018), transparent 30%);
+    @apply bg-bg font-sans text-body antialiased;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  ::selection {
+    background: #F2F2F2;
+    color: #0A0A0B;
   }
 
   h1,
   h2,
   h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading text-white;
+  h4 {
+    @apply font-heading font-semibold tracking-head text-ink;
+    line-height: 1.05;
+  }
+
+  :focus-visible {
+    outline: 2px solid #F2F2F2;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
   }
 }
 
-@layer utilities {
-  .glass {
-    @apply backdrop-blur-md bg-white/5 border border-white/10;
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-page px-6 md:px-10;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-accentGreen;
+  /* 11px uppercase section label, with a lime dash before it */
+  .label {
+    @apply font-sans text-[11px] font-medium uppercase leading-none tracking-label text-body;
   }
 
-  .hero-grid {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: linear-gradient(to bottom, black, transparent 80%);
+  .label-dash::before {
+    content: '\2014';
+    @apply mr-2 text-lime;
   }
-}
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border px-5 text-[15px] font-medium;
+    /* hover out: 120ms */
+    transition: transform 120ms cubic-bezier(.2, .8, .2, 1), background-color 120ms, border-color 120ms, color 120ms;
+  }
 
-::-webkit-scrollbar-track {
-  @apply bg-primary;
-}
+  /* Step up 1px on hover: mouse/trackpad only, never on touch. */
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+      transform: translateY(-1px);
+      transition-duration: 150ms;
+    }
+  }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-tertiary rounded-full hover:bg-gray-600 transition-colors;
+  /* Press: 1px below rest, slightly smaller. Works for touch too. */
+  .btn:active {
+    transform: translateY(1px) scale(.985);
+    transition-duration: 90ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:active {
+      transform: none;
+    }
+  }
+
+  .btn-primary {
+    @apply btn border-white bg-white text-bg hover:border-lime active:bg-[#E4E4E7];
+  }
+
+  .btn-outline {
+    @apply btn border-line text-ink hover:border-[#3F3F46] hover:bg-surface active:bg-hover;
+  }
+
+  /* Nav word underline: a 1px line 4px under the word that draws left-to-right and leaves to the right. */
+  .nav-draw::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 120ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  .group:hover > .nav-draw::before,
+  .group:focus-visible > .nav-draw::before {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition-duration: 150ms;
+  }
+
+  .nav-draw--off::before {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-draw::before {
+      transition: none;
+    }
+  }
+
+  /* Photo zooms 1.03 inside a fixed frame: 600ms in, 400ms out. Mouse only. */
+  .photo-frame img {
+    transition: transform 400ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .photo-frame:hover img {
+      transform: scale(1.03);
+      transition-duration: 600ms;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-frame img {
+      transition: none;
+    }
+
+    .photo-frame:hover img {
+      transform: none;
+    }
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-full border border-line bg-hover px-2.5 py-0.5 text-[12px] leading-5 text-body;
+  }
 }

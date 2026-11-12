@@ -7,34 +7,28 @@ export default {
     theme: {
         extend: {
             colors: {
-                dark: "#0D1117",
-                secondary: "#161b22",
-                tertiary: "#1F2937",
-                neonBlue: "#2f81f7", // GitHub blue-ish neon
-                neonGreen: "#2ea043", // GitHub green-ish neon
-                // Let's use the user's requested colors more closely
-                // "Neon blue & emerald green accents"
-                // "Colors like #0D1117, #111827, #1F2937"
-                primary: "#0D1117", // Main background
-                surface: "#111827", // Secondary background
-                accent: "#00f2ff", // Neon Blue
-                accentGreen: "#00ff88", // Neon Green
-                muted: "#68717d",
+                bg: "#0A0A0B",
+                surface: "#121214",
+                hover: "#161618",
+                dot: "#2A2A2E",
+                grey: "#8A8A93",
+                line: "#1E1E20",
+                ink: "#F2F2F2",
+                body: "#A1A1AA",
+                faint: "#71717A",
+                lime: "#D9F24F",
             },
             fontFamily: {
-                sans: ['DM Sans', 'sans-serif'],
-                heading: ['Space Grotesk', 'sans-serif'],
+                sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                heading: ['"Inter Tight Variable"', '"Inter Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
-            animation: {
-                'spin-slow': 'spin 8s linear infinite',
-                'float': 'float 3s ease-in-out infinite',
+            letterSpacing: {
+                head: '-0.03em',
+                label: '0.22em',
             },
-            keyframes: {
-                float: {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-10px)' },
-                }
-            }
+            maxWidth: {
+                page: '1200px',
+            },
         },
     },
     plugins: [],

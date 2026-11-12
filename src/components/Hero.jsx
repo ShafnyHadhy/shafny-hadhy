@@ -1,87 +1,78 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-scroll';
-import { FaArrowDown, FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Reveal, Arrow, GitHubIcon } from './ui';
 
-const Hero = () => {
+const EASE = [0.22, 1, 0.36, 1];
+
+/**
+ * A word (or phrase) that rises out of its own clipped mask, once, on load.
+ * The padding/negative margin keeps descenders (p, y, g) inside the mask at line-height 1.
+ */
+const Mask = ({ children, delay, className = '' }) => {
+    const reduce = useReducedMotion();
     return (
-        <div name="home" className="hero-shell w-full min-h-screen bg-primary flex items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-            <div className="hero-grid absolute inset-0 pointer-events-none"></div>
-            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-0 -left-40 w-96 h-96 rounded-full bg-accentGreen/5 blur-[130px] pointer-events-none"></div>
-
-            <div className="max-w-7xl mx-auto w-full relative z-10">
-                <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-accent mb-8">
-                    <span className="h-px w-10 bg-accent"></span>
-                    <span>Software engineer / builder</span>
-                </div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="max-w-5xl"
+        <span className={`inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom ${className}`}>
+            {reduce ? (
+                <span className="inline-block">{children}</span>
+            ) : (
+                <motion.span
+                    className="inline-block will-change-transform"
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.7, ease: EASE, delay }}
                 >
-                    <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-medium text-white tracking-tight leading-[0.95]">
-                        Building useful systems
-                        <span className="block text-muted">for a changing world.</span>
-                    </h1>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.15 }}
-                    className="max-w-2xl mt-8"
-                >
-                    <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                        I am Shafny Hadhy, an Associate Software Engineer and software engineering undergraduate focused on full-stack products, resilient APIs, and thoughtful AI-assisted workflows.
-                    </p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.25 }}
-                    className="flex flex-col sm:flex-row gap-3 mt-10"
-                >
-                    <Link to="projects" smooth duration={500} offset={-80} className="inline-flex items-center justify-center gap-3 px-5 py-3 bg-accent text-primary font-bold rounded-md hover:bg-white transition-colors duration-300 cursor-pointer">
-                        Explore selected work <FaArrowDown size={13} />
-                    </Link>
-                    <a href="https://github.com/ShafnyHadhy" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-3 px-5 py-3 border border-white/15 text-white font-bold rounded-md hover:border-accent hover:text-accent transition-colors duration-300">
-                        <FaGithub size={16} /> GitHub profile
-                    </a>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.35 }}
-                    className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 border border-white/10 mt-20 max-w-3xl"
-                >
-                    <div className="bg-surface p-5 sm:p-6">
-                        <span className="text-3xl font-heading text-white block mb-2">12+</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Products and<br />experiments</span>
-                    </div>
-                    <div className="bg-surface p-5 sm:p-6">
-                        <span className="text-3xl font-heading text-white block mb-2">4</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Product areas<br />explored</span>
-                    </div>
-                    <div className="bg-surface p-5 sm:p-6">
-                        <span className="text-3xl font-heading text-accent block mb-2">Now</span>
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Building with<br />curiosity</span>
-                    </div>
-                </motion.div>
-
-                <div className="flex items-center gap-5 mt-10 text-gray-500">
-                    <span className="text-[10px] uppercase tracking-[0.25em]">Find me</span>
-                    <a href="https://github.com/ShafnyHadhy" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-accent transition-colors"><FaGithub /></a>
-                    <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-accent transition-colors"><FaLinkedinIn /></a>
-                </div>
-
-            </div>
-        </div>
+                    {children}
+                </motion.span>
+            )}
+        </span>
     );
 };
+
+// Lines rise 80ms apart; the rest follows from ~halfway through the last line (0.16 + 0.35).
+const AFTER = 0.5;
+
+const Hero = () => (
+    <section id="top" aria-labelledby="hero-title" className="flex min-h-[100svh] items-center pb-16 pt-[110px] md:pb-24 md:pt-28">
+        <div className="wrap">
+            <Reveal onLoad duration={0.52} distance={12}>
+                <p className="label label-dash">Shafny Hadhy — Colombo, Sri Lanka</p>
+            </Reveal>
+
+            <h1 id="hero-title" className="mt-8 text-[48px] leading-none md:text-[72px]">
+                <span className="block text-white">
+                    <Mask delay={0}>Full-Stack</Mask>
+                    <br className="md:hidden" />
+                    <span className="hidden md:inline"> </span>
+                    <Mask delay={0.08} className="text-lime text-[56px] leading-none md:text-[72px]">Developer.</Mask>
+                </span>
+                <span className="block text-grey text-[42px] leading-none md:text-[72px]">
+                    <Mask delay={0.16}>Building production systems.</Mask>
+                </span>
+            </h1>
+
+            <Reveal onLoad delay={AFTER} duration={0.52} distance={12}>
+                <p className="mt-8 max-w-[38rem] text-[17px] md:text-[18px]">
+                    Associate Software Engineer based in Colombo, Sri Lanka. Currently building Recall with Next.js,
+                    React, Laravel and MySQL. Focused on resilient APIs and clean, shippable UI.
+                </p>
+            </Reveal>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Reveal onLoad delay={AFTER + 0.06} duration={0.52} distance={12} className="flex">
+                    <a href="#work" className="btn-primary group min-h-[48px] w-full sm:min-h-[44px] sm:w-auto">
+                        View work
+                        <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
+                    </a>
+                </Reveal>
+                <Reveal onLoad delay={AFTER + 0.12} duration={0.52} distance={12} className="flex">
+                    <a href="https://github.com/ShafnyHadhy" target="_blank" rel="noreferrer" className="btn-outline min-h-[48px] w-full sm:min-h-[44px] sm:w-auto">
+                        <GitHubIcon />
+                        GitHub
+                    </a>
+                </Reveal>
+            </div>
+        </div>
+    </section>
+);
 
 export default Hero;

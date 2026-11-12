@@ -1,449 +1,277 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaTimes, FaCode } from 'react-icons/fa';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { projects, categories } from '../data/projects';
+import { Reveal, Section, Arrow, GitHubIcon } from './ui';
 
-const projectsData = [
-    {
-        id: 11,
-        title: "Atlas Workflow Automation",
-        category: "Platform",
-        eyebrow: "Multi-tenant product",
-        problem: "Businesses need repeatable workflows without turning every process into a custom engineering project.",
-        solution: "A visual workflow platform for building, executing, and monitoring reliable business automations.",
-        tech: ["Laravel", "React", "PostgreSQL", "React Flow"],
-        image: "/job_board_api.png",
-        live: "",
-        github: "https://github.com/ShafnyHadhy/atlas-workflow-automation",
-        details: `**Product focus:** Designed around multi-tenant workflow creation, execution, and monitoring for teams.
+const hasLink = (url) => url && url !== '#';
 
-    **Engineering focus:** Combines a Laravel backend with a React interface and PostgreSQL persistence to model workflows as dependable, inspectable systems.`
-    },
-    {
-        id: 12,
-        title: "Solar Link Co-op",
-        category: "Mobile App",
-        eyebrow: "Community energy",
-        problem: "Shared solar projects need clearer coordination between members, roles, and the systems that manage them.",
-        solution: "A mobile co-operative experience for organizing solar participation with role-based access and a focused product flow.",
-        tech: ["React Native", "Expo", "TypeScript", "RBAC"],
-        image: "/revolve_dashboard.png",
-        live: "",
-        github: "https://github.com/ShafnyHadhy/solar-link-co-op-app",
-        details: `**Product focus:** Explores how a mobile experience can make shared solar initiatives easier to coordinate.
-
-    **Engineering focus:** Built with React Native and Expo, with TypeScript and role-based access control supporting a clear, maintainable application structure.`
-    },
-    {
-        id: 13,
-        title: "Invoice Reader",
-        category: "AI Workflow",
-        eyebrow: "Document intelligence",
-        problem: "Important invoice information is often trapped in documents that teams still process manually.",
-        solution: "A web application that uses AI-assisted extraction to turn invoice files into structured, usable records.",
-        tech: ["Laravel", "React", "Tailwind", "Gemini API"],
-        image: "/finflow_dashboard.png",
-        live: "",
-        github: "https://github.com/ShafnyHadhy/invoice-reader-laravel",
-        details: `**Product focus:** Converts uploaded invoice documents into structured data that can be reviewed and stored.
-
-    **Engineering focus:** Connects a Laravel application and React interface with the Google Gemini API, treating AI as part of a useful workflow rather than a decorative feature.`
-    },
-    {
-        id: 10,
-        title: "Job Board SaaS API",
-        category: "Web App",
-        eyebrow: "Backend systems",
-        problem: "Job platforms must handle high-volume, complex queries while maintaining strict security and performance under load. As a system scales, basic database lookups become bottlenecks, APIs become vulnerable to abuse, and debugging failures across concurrent requests becomes nearly impossible without proper observability.",
-        solution: "I architected and deployed a highly scalable, backend-only SaaS API designed for high-performance job matching. The system leverages PostgreSQL's full-text search with GIN indexing to ensure lightning-fast query resolution across thousands of listings. To guarantee stability under load, I implemented a Redis-backed cache-aside pattern and strict route-specific rate limiting.",
-        tech: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma 7", "Redis", "Docker", "JWT", "Google OAuth"],
-        image: "/job_board_api.png",
-        live: "https://jobboard-api-navy.vercel.app/",
-        github: "https://github.com/ShafnyHadhy/jobboard-api",
-        details: "This API was built to tackle the core challenges of a production-grade SaaS platform.\n\n**Core Architecture:** Developed a robust REST API using Node.js, Express, and TypeScript, managing five core entities (Users, Companies, Jobs, Applications, Notifications) via Prisma ORM. Authentication is secured via JWT and Google OAuth.\n\n**Performance Optimization:** Bypassed standard query bottlenecks by implementing PostgreSQL full-text search with GIN indexing. Integrated Redis using a cache-aside pattern (utilizing scanStream over blocking KEYS commands) to significantly reduce database load during traffic spikes.\n\n**Security & Reliability:** Protected sensitive endpoints with distributed rate-limiting.\n\n**Observability:** Engineered an end-to-end tracing system by injecting UUID correlation IDs into structured JSON logs, allowing seamless request tracing and debugging across the entire system lifecycle. The infrastructure is fully containerized using Docker Compose for reliable local deployment and testing."
-    },
-    {
-        id: 1,
-        title: "CareBridge",
-        category: "Web App",
-        eyebrow: "Distributed product",
-        problem: "Monolithic healthcare systems struggle with data fragmentation, scaling during high traffic, and integrating real-time video consultations seamlessly.",
-        solution: "Engineered a scalable, microservices-based telemedicine platform. Decoupled core domains (appointments, patient records, payments) into independent services orchestrated by an API Gateway, allowing the system to scale components independently.",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Kubernetes", "Tailwind CSS"],
-        image: "/carebridge_dashboard.png",
-        live: "",
-        github: "https://github.com/ShafnyHadhy/health_care_appointment-microservices.git",
-        details: "**Architecture:** Developed using React, Node.js, and Express, with MongoDB for data persistence. Designed a microservices architecture consisting of independent services for authentication, patient/doctor management, telemedicine, and an AI symptom checker.\n\n**Infrastructure & DevOps:** Containerized the entire application suite using Docker and orchestrated deployments with Kubernetes, ensuring high availability and seamless horizontal scaling.\n\n**Key Features:** Integrated secure virtual video consultations, automated prescription generation, and robust role-based access control for administrators, doctors, and patients."
-    },
-    {
-        id: 2,
-        title: "FinFlow",
-        category: "Web App",
-        eyebrow: "Data product",
-        problem: "Personal finance tools often lack real-time data synchronization and struggle to securely process, categorize, and visualize large volumes of transactional data efficiently.",
-        solution: "Developed a full-stack financial dashboard designed for high data integrity and real-time analytics. Implemented a robust React and Laravel architecture with automated workflow integrations to categorize transactions and dynamically visualize spending patterns.",
-        tech: ["React", "TypeScript", "Laravel", "MySQL", "Tailwind CSS", "n8n"],
-        image: "/finflow_dashboard.png",
-        live: "#",
-        github: "https://github.com/riyajkm/f-tracker",
-        details: "**Tech Stack:** Built with a React and TypeScript frontend, powered by a Laravel backend and a MySQL relational database. Styled with Tailwind CSS for a highly responsive user experience.\n\n**Data Pipelines & Automation:** Integrated n8n to handle automated workflows for transaction categorization and real-time alerts.\n\n**Analytics & Dashboarding:** Created interactive, real-time data visualizations to track income and expenses, utilizing efficient MySQL queries and Laravel's Eloquent ORM to process financial data securely and quickly."
-    },
-    {
-        id: 3,
-        title: "Revolve",
-        category: "Web App",
-        eyebrow: "Circular economy",
-        problem: "Traditional waste management lacks real-time tracking, geolocation routing, and structured categorization, leading to operational inefficiencies and poor resource allocation.",
-        solution: "Architected a full-stack waste management ecosystem to digitize recycling tracking and disposal routing. Integrated Google Maps API for location-based services and built secure role-based access controls for administrators and regular users.",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Google Maps API"],
-        image: "/revolve_dashboard.png",
-        live: "https://revolve-af.vercel.app/",
-        github: "https://github.com/ShafnyHadhy/AF-frontend-react",
-        details: "**Core System:** Developed using the MERN stack. Designed robust RESTful APIs to handle high-frequency data logging for waste entries and disposal activities.\n\n**Geolocation Integration:** Leveraged the Google Maps API to map recycling centers and optimize disposal tracking, making the platform interactive and location-aware.\n\n**User Roles & Security:** Implemented JWT-based authentication with strict role-based routing (Admin vs. User) to maintain system integrity and data security."
-    },
-    {
-        id: 4,
-        title: "CocoSmart",
-        category: "Web App",
-        eyebrow: "Operations platform",
-        problem: "Agricultural operations often rely on fragmented, paper-based systems, creating severe bottlenecks in inventory tracking, order processing, and financial reporting.",
-        solution: "Led the development of a centralized, MERN-stack plantation ERP system. Engineered modules for product management, secure order processing, and automated financial tracking, transitioning the operation from manual logs to a digitized workflow.",
-        tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-        image: "/cocosmart.png",
-        live: "https://cocosmart.vercel.app/",
-        github: "https://github.com/ShafnyHadhy/cocosmart-frontend",
-        details: "**Leadership & Architecture:** Acted as Team Lead, orchestrating the system architecture, database schema design, and API structure to ensure cross-module compatibility.\n\n**Core Modules:** Personally developed the Authentication system, the B2B/B2C Marketplace, and the Finance module. Ensured strict ACID compliance in MongoDB transactions for order processing and financial record-keeping.\n\n**DevOps & Collaboration:** Managed version control workflows via Git/GitHub, resolving merge conflicts and maintaining CI/CD best practices across the development team."
-    },
-    {
-        id: 5,
-        title: "BillOut",
-        category: "Web App",
-        eyebrow: "Scheduling system",
-        problem: "Managing recurring financial obligations requires reliable scheduling systems; manual tracking frequently results in missed deadlines and late penalties.",
-        solution: "Engineered a robust scheduling and reminder system utilizing Java Servlets and MySQL. Implemented CRON-like background processes to manage state changes and trigger timely notifications for pending bills and events.",
-        tech: ["HTML", "CSS", "Bootstrap", "PHP", "MySQL"],
-        image: "/bill-reminder.png",
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/online-bill-and-event-reminder",
-        details: "**Backend Engineering:** Built a robust server-side architecture using Java, JSP, and Servlets. Implemented session management and secure user authentication flows.\n\n**Database Design:** Designed a normalized MySQL relational database schema to efficiently store user profiles, recurring bills, and event schedules without data redundancy.\n\n**Frontend Integration:** Developed a responsive UI with HTML, CSS, and Bootstrap, ensuring seamless interaction with the Java backend through structured HTTP requests."
-    },
-    {
-        id: 6,
-        title: "iBank",
-        category: "Web App",
-        eyebrow: "Financial system",
-        problem: "Digital banking platforms must adhere to strict security protocols, handle concurrent transactions safely, and manage complex state across user and admin roles.",
-        solution: "Developed a secure, MVC-based online banking application simulating core financial operations. Engineered transactional safeguards using Java and MySQL to prevent race conditions during account updates and transfers.",
-        tech: ["HTML", "CSS", "Bootstrap", "Java", "JSP", "Servlets", "MySQL"],
-        image: "/finance-tracker.png",
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/online-banking-system",
-        details: "**Architecture:** Implemented a strict Model-View-Controller (MVC) architecture using Java, JSP, and Servlets to cleanly separate business logic from presentation.\n\n**Security & Transactions:** Built secure user authentication and session handling. Leveraged MySQL transactional features to ensure financial data integrity during simulated deposits, withdrawals, and transfers.\n\n**Administration:** Developed a comprehensive admin dashboard with elevated privileges for user account oversight and system data maintenance."
-    },
-    {
-        id: 7,
-        title: "Taskify",
-        category: "Web App",
-        eyebrow: "Productivity tool",
-        problem: "Task management systems require efficient state updates and relational data structures to handle categories, priorities, and user associations without performance degradation.",
-        solution: "Built a highly performant, server-rendered task management application using the Laravel PHP framework. Leveraged Eloquent ORM for complex database relationships and Blade templating for rapid UI delivery.",
-        tech: ["Laravel", "Blade", "MySQL"],
-        image: "/taskify_dashboard.png",
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/task-management-laravel",
-        details: "**Framework Expertise:** Utilized Laravel's robust ecosystem to implement secure authentication, CSRF protection, and RESTful routing.\n\n**Database & ORM:** Designed a relational MySQL database and used Eloquent ORM to manage complex relationships between users, task categories, and statuses.\n\n**Frontend:** Leveraged Blade templating engine for efficient server-side rendering, ensuring fast initial page loads and secure data injection."
-    },
-    {
-        id: 8,
-        title: "Mindly",
-        category: "Mobile App",
-        eyebrow: "Wellness product",
-        problem: "Mental wellness tracking requires continuous user engagement, offline-first capabilities, and sophisticated data analysis to recognize emotional patterns effectively.",
-        solution: "Engineered a native Android application prioritizing local data persistence and real-time cloud syncing. Integrated AI-driven insights to analyze mood trends, leveraging the MVVM architecture for clean UI state management.",
-        tech: ["Kotlin", "XML", "Android Studio", "RecyclerView", "ViewModel", "Room"],
-        image: "/mindly_app.png",
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/mindly-personal-wellness-app",
-        details: "**Mobile Architecture:** Built natively using Kotlin and XML layouts, strictly adhering to the MVVM (Model-View-ViewModel) architectural pattern for predictable state management and testability.\n\n**Local & Cloud Data:** Implemented the Room persistence library for reliable offline caching of journal entries and mood logs, syncing seamlessly with a Node.js/Express backend and MongoDB database.\n\n**Real-time Features:** Integrated Firebase for secure authentication and push notifications, ensuring users receive timely reminders and updates."
-    },
-    {
-        id: 9,
-        title: "TrekkiwMate",
-        category: "Mobile App",
-        eyebrow: "Mobile experience",
-        problem: "Travel applications often suffer from cluttered interfaces and poor data structuring, leading to high cognitive load when planning complex itineraries.",
-        solution: "Designed and developed a UI/UX-centric Android travel application. Translated high-fidelity Figma prototypes into responsive XML layouts, utilizing RecyclerViews and View Binding for fluid, memory-efficient list rendering.",
-        tech: ["Figma", "Android Studio", "XML", "Kotlin", "Material Design", "View Binding"],
-        image: "/trekkiwmate_app.png",
-        live: "#",
-        github: "https://github.com/ShafnyHadhy/trekkieMate-travel-app",
-        details: "**UI/UX Engineering:** Started with comprehensive wireframing and prototyping in Figma, focusing on user-centered design principles before translating flows into native Android code.\n\n**Android Development:** Implemented pixel-perfect UIs using XML and Material Design components. Utilized advanced Android techniques like View Binding for null-safe view interactions and RecyclerViews for performant list scrolling.\n\n**Focus:** The project highlights the bridge between strict design systems and native mobile implementation, ensuring both aesthetic appeal and technical performance."
-    }
-];
-
-const FilterTabs = ({ activeFilter, setFilter }) => {
-    const filters = ["All", "Platform", "AI Workflow", "Web App", "Mobile App"];
-
-    return (
-        <div className="flex justify-center gap-4 mb-12 flex-wrap">
-            {filters.map((filter) => (
+const Filters = ({ active, onChange }) => (
+    <div role="group" aria-label="Filter projects" className="-mx-3 flex flex-wrap gap-x-1 gap-y-0">
+        {categories.map((c) => {
+            const on = c === active;
+            return (
                 <button
-                    key={filter}
-                    onClick={() => setFilter(filter)}
-                    className={`px-5 py-1.5 rounded text-[13px] font-bold transition-all duration-300 border ${activeFilter === filter
-                        ? "bg-accent text-primary border-accent"
-                        : "bg-surface text-gray-400 border-white/10 hover:border-accent hover:text-accent"
-                        }`}
+                    key={c}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => onChange(c)}
+                    className={`inline-flex min-h-[44px] items-center gap-2 px-3 text-[13px] ${on ? 'text-white' : 'text-body hover:text-white'}`}
                 >
-                    {filter}
+                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full bg-lime ${on ? 'opacity-100' : 'opacity-0'}`} />
+                    {c}
                 </button>
-            ))}
-        </div>
-    );
-};
+            );
+        })}
+    </div>
+);
 
-const ProjectCard = ({ project, onClick, index }) => {
-    const normalizedIndex = index % 4;
-    const isLargeLeft = normalizedIndex === 0;
-    const isSmallTopRight = normalizedIndex === 1 || normalizedIndex === 2;
-    const isWideBottomRight = normalizedIndex === 3;
+const Row = ({ project, index, onOpen, onLoad = false }) => (
+    <Reveal as="li" delay={Math.min(index * 0.04, 0.4)} onLoad={onLoad} className="border-t border-line bg-transparent last:border-b">
+        <button
+            type="button"
+            onClick={() => onOpen(project)}
+            className="group -mx-4 grid w-[calc(100%+2rem)] grid-cols-1 gap-4 rounded-md bg-transparent px-4 py-7 text-left transition-colors duration-150 hover:bg-hover md:grid-cols-[1fr_auto] md:items-center md:gap-10"
+        >
+            <span className="flex min-w-0 gap-4">
+                <span aria-hidden="true" className="w-6 shrink-0 pt-[7px] font-sans text-[12px] font-medium tabular-nums text-lime">
+                    {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="min-w-0">
+                    <span className="block font-heading text-[22px] font-semibold leading-[1.05] tracking-head text-ink transition-transform duration-150 group-hover:translate-x-0.5 md:text-[26px]">
+                        {project.title}
+                    </span>
+                    <span className="mt-2 block text-[16px] leading-[1.65] text-body">{project.does}</span>
+                    <span className="mt-1 block text-[14px] leading-[1.65] text-faint">Solved: {project.solved}</span>
+                </span>
+            </span>
+            <span className="flex items-center justify-between gap-6 pl-10 md:justify-end md:pl-0">
+                <span className="flex flex-wrap gap-1.5 md:flex-nowrap md:justify-end">
+                    {project.tech.slice(0, 3).map((t) => (
+                        <span key={t} className="pill">{t}</span>
+                    ))}
+                    {project.tech.length > 3 && (
+                        <span className="pill text-faint">+{project.tech.length - 3}</span>
+                    )}
+                </span>
+                <Arrow className="shrink-0 text-faint transition-[transform,color] duration-150 group-hover:translate-x-1 group-hover:text-lime" />
+            </span>
+        </button>
+    </Reveal>
+);
 
-    let gridClasses = '';
-    let layoutClasses = 'flex-col';
-    let imageClasses = 'w-full border-b border-white/10';
-    let contentClasses = 'w-full flex-grow';
-    let titleClasses = 'font-bold text-gray-200 group-hover:text-accent transition-colors ';
-    let descClasses = 'text-gray-400 text-sm leading-relaxed ';
+const Details = ({ text }) => (
+    <div className="space-y-3">
+        {text.split(/\n\s*\n/).map((para, i) => (
+            <p key={i} className="text-[15px] leading-[1.7] text-body">
+                {para.trim().split(/\*\*(.*?)\*\*/g).map((part, j) =>
+                    j % 2 === 1 ? (
+                        <strong key={j} className="font-semibold text-ink">
+                            {part}
+                        </strong>
+                    ) : (
+                        part
+                    )
+                )}
+            </p>
+        ))}
+    </div>
+);
 
-    if (isLargeLeft) {
-        gridClasses = 'md:col-span-2 lg:col-span-2 lg:row-span-2';
-        imageClasses += ' h-64 lg:h-[50%]';
-        contentClasses += ' p-5 lg:p-6';
-        titleClasses += 'text-xl lg:text-2xl';
-        descClasses += 'line-clamp-4 lg:line-clamp-none';
-    } else if (isWideBottomRight) {
-        gridClasses = 'md:col-span-2 lg:col-span-2';
-        layoutClasses = 'flex-col sm:flex-row';
-        imageClasses = 'w-full sm:w-[45%] h-48 sm:h-auto border-b sm:border-b-0 sm:border-r border-white/10';
-        contentClasses = 'w-full sm:w-[55%] justify-center p-5 lg:p-6';
-        titleClasses += 'text-lg lg:text-xl';
-        descClasses += 'line-clamp-3';
-    } else { // isSmallTopRight
-        gridClasses = 'md:col-span-1 lg:col-span-1';
-        imageClasses += ' h-40 lg:h-32';
-        contentClasses += ' p-4';
-        titleClasses += 'text-base lg:text-lg';
-        descClasses += 'line-clamp-2';
-    }
+const ProjectDialog = ({ project, onClose }) => {
+    const closeRef = useRef(null);
+
+    useEffect(() => {
+        const prev = document.activeElement;
+        closeRef.current?.focus();
+        document.body.style.overflow = 'hidden';
+        const onKey = (e) => e.key === 'Escape' && onClose();
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+            prev?.focus?.();
+        };
+    }, [onClose]);
 
     return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => onClick(project)}
-            onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    onClick(project);
-                }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label={`Open case study for ${project.title}`}
-            className={`group w-full bg-surface border border-white/10 hover:border-accent/40 focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-md cursor-pointer transition-all duration-300 flex overflow-hidden relative ${gridClasses} ${layoutClasses}`}
+        <div
+            className="fixed inset-0 z-50 flex items-end justify-center bg-black/80 backdrop-blur-sm md:items-center md:p-6"
+            onClick={onClose}
         >
-            {/* Image Container */}
-            <div className={`relative overflow-hidden bg-primary/20 flex-shrink-0 ${imageClasses}`}>
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-            </div>
+            <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="project-title"
+                onClick={(e) => e.stopPropagation()}
+                className="max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-lg border border-line bg-surface md:rounded-lg"
+            >
+                {/* Modal Header */}
+                <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-surface px-6 py-4 md:px-8">
+                    <p className="label label-dash">{project.category}</p>
+                    <button
+                        ref={closeRef}
+                        type="button"
+                        onClick={onClose}
+                        className="-mr-2 min-h-[44px] px-3 text-[13px] text-body transition-colors hover:text-white"
+                    >
+                        Close
+                    </button>
+                </div>
 
-            {/* Content Container */}
-            <div className={`flex flex-col gap-3 ${contentClasses}`}>
-                <div className="flex flex-col gap-1">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-accentGreen font-bold">{project.eyebrow}</span>
-                    <h3 className={titleClasses}>
+                <div className="px-6 pb-10 pt-8 md:px-8">
+                    {/* Title & Eyebrow */}
+                    <h3 id="project-title" className="text-[28px] md:text-[36px] font-heading font-semibold text-ink leading-[1.1] tracking-head">
                         {project.title}
                     </h3>
-                </div>
-
-                <p className={descClasses}>
-                    {project.solution}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
-                    {project.tech.slice(0, isSmallTopRight ? 3 : 5).map((t, i) => (
-                        <span key={i} className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300 flex items-center gap-1.5 hover:bg-white/10 hover:text-accent transition-colors cursor-default">
-                            <FaCode size={10} className="text-accentGreen" /> {t}
-                        </span>
-                    ))}
-                    {project.tech.length > (isSmallTopRight ? 3 : 5) && (
-                        <span className="text-[11px] px-2 py-1 rounded-full border border-transparent text-gray-500 font-medium hover:text-accent transition-colors cursor-default">
-                            +{project.tech.length - (isSmallTopRight ? 3 : 5)}
-                        </span>
+                    {project.eyebrow && (
+                        <p className="mt-2 text-[15px] text-body">{project.eyebrow}</p>
                     )}
-                </div>
-                <div className="flex items-center justify-between gap-3 pt-2 border-t border-white/10 text-[10px] uppercase tracking-[0.18em] text-gray-500 group-hover:text-accent transition-colors">
-                    <span>Read case study</span>
-                    <span aria-hidden="true" className="text-base leading-none transition-transform duration-300 group-hover:translate-x-1">-&gt;</span>
+
+                    {/* Screenshot if available */}
+                    {project.screenshot && (
+                        <img
+                            src={project.screenshot}
+                            alt={`${project.title} screenshot`}
+                            width="1440"
+                            height="900"
+                            loading="lazy"
+                            className="mt-6 aspect-[16/10] w-full rounded-md border border-line object-cover object-top"
+                        />
+                    )}
+
+                    {/* Structured Content matching system typography */}
+                    <div className="mt-8 space-y-8 border-t border-line pt-8">
+                        <div>
+                            <h4 className="label label-dash mb-2">Problem</h4>
+                            <p className="text-[16px] leading-[1.65] text-ink">{project.problem}</p>
+                        </div>
+
+                        <div>
+                            <h4 className="label label-dash mb-2">Solution</h4>
+                            <p className="text-[16px] leading-[1.65] text-ink">{project.solution}</p>
+                        </div>
+
+                        {project.details && (
+                            <div>
+                                <h4 className="label label-dash mb-3">Technical details</h4>
+                                <Details text={project.details} />
+                            </div>
+                        )}
+
+                        <div>
+                            <h4 className="label label-dash mb-3">Stack</h4>
+                            <div className="flex flex-wrap gap-1.5">
+                                {project.tech.map((t) => (
+                                    <span key={t} className="pill">{t}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="mt-10 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row">
+                        {hasLink(project.live) && (
+                            <a href={project.live} target="_blank" rel="noreferrer" className="btn-primary group min-h-[44px]">
+                                Open live demo <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
+                            </a>
+                        )}
+                        {hasLink(project.github) && (
+                            <a href={project.github} target="_blank" rel="noreferrer" className="btn-outline min-h-[44px]">
+                                <GitHubIcon /> View source
+                            </a>
+                        )}
+                    </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
-const Projects = ({ limit = 4, showViewMore = true, showBackButton = false }) => {
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [filter, setFilter] = useState("All");
-    const filteredProjects = filter === "All"
-        ? projectsData
-        : projectsData.filter(project => project.category === filter);
+const Projects = ({ limit = 6, showViewMore = true, isFullPage = false }) => {
+    const [filter, setFilter] = useState('All');
+    const [open, setOpen] = useState(null);
+    const close = useCallback(() => setOpen(null), []);
+    const list = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+    const shown = limit ? list.slice(0, limit) : list;
 
-    return (
-        <div name="projects" className="w-full min-h-screen bg-primary py-24 relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {showBackButton && (
-                    <div className="mb-6 z-20 relative">
-                        <Link to="/" className="text-accent hover:text-white font-bold flex w-fit items-center gap-2 transition-colors">
-                            ← Back to Portfolio
-                        </Link>
-                    </div>
-                )}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 border-b border-white/10 pb-8">
-                    <div>
-                        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-accent mb-4">
-                            <span className="h-px w-8 bg-accent"></span>
-                            Selected work
+    // Full dedicated archive page (/projects) matching 12-column system
+    if (isFullPage) {
+        return (
+            <div className="pt-28 pb-24 md:pt-36 md:pb-32">
+                <div className="wrap">
+                    <Link
+                        to="/#work"
+                        className="group inline-flex min-h-[44px] items-center gap-2 text-[14px] text-body transition-colors duration-150 hover:text-white mb-6"
+                    >
+                        <span className="transition-transform duration-150 group-hover:-translate-x-1">←</span>
+                        Back to home
+                    </Link>
+
+                    <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 pb-12 border-b border-line">
+                        <div className="md:col-span-9">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
+                                <h1 className="text-[36px] md:text-[54px] font-heading font-semibold text-ink leading-none tracking-head">
+                                    All Projects<span className="text-lime">.</span>
+                                </h1>
+                                <span className="label text-faint">
+                                    {list.length} {list.length === 1 ? 'project' : 'projects'}
+                                </span>
+                            </div>
+                            <p className="mt-4 max-w-[42rem] text-[17px] text-body leading-relaxed">
+                                A complete index of production applications, APIs, distributed systems and full-stack work.
+                            </p>
+                            <div className="mt-8">
+                                <Filters active={filter} onChange={setFilter} />
+                            </div>
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-heading font-medium text-white">Systems with a <span className="text-muted">reason to exist.</span></h2>
                     </div>
-                    <p className="text-gray-400 text-sm max-w-md leading-relaxed">
-                        A focused selection of products, platforms, and experiments. Each one reflects a different question about how software can make a real workflow clearer, faster, or more reliable.
-                    </p>
+
+                    <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 pt-8">
+                        <div className="hidden md:block md:col-span-2">
+                            <span className="label text-faint sticky top-28">01 — {String(list.length).padStart(2, '0')}</span>
+                        </div>
+                        <div className="md:col-span-9">
+                            <ul className="border-t border-line">
+                                {list.map((p, i) => (
+                                    <Row key={`${filter}-${p.id}`} project={p} index={i} onOpen={setOpen} onLoad={true} />
+                                ))}
+                            </ul>
+
+                            {list.length === 0 && (
+                                <p className="py-16 text-[15px] text-body">
+                                    No projects in this category.
+                                </p>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
-                <FilterTabs activeFilter={filter} setFilter={setFilter} />
-
-                <motion.div
-                    layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto"
-                >
-                    <AnimatePresence>
-                        {filteredProjects.slice(0, limit ? limit : filteredProjects.length).map((project, index) => (
-                            <ProjectCard key={project.id} project={project} onClick={setSelectedProject} index={index} />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
-
-                {showViewMore && filteredProjects.length > limit && (
-                    <div className="mt-12 text-center relative z-20 flex justify-center">
-                        <Link
-                            to="/projects"
-                            className="px-8 py-3 bg-primary text-accent font-normal rounded-md transition-all duration-300 hover:underline underline-offset-4"
-                            onClick={() => window.scrollTo(0, 0)}
-                        >
-                            View All Projects -{'>'}
-                        </Link>
-                    </div>
-                )}
+                {open && <ProjectDialog project={open} onClose={close} />}
             </div>
+        );
+    }
 
-            {/* Project Modal */}
-            <AnimatePresence>
-                {selectedProject && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
-                        onClick={() => setSelectedProject(null)}
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ duration: 0.3 }}
-                            className="bg-surface w-full max-w-5xl rounded-xl overflow-hidden border border-gray-800 relative flex flex-col md:flex-row max-h-[90vh]"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 p-2 bg-black/50 rounded-full text-gray-300 hover:text-white z-50 transition-colors">
-                                <FaTimes size={20} />
-                            </button>
-
-                            {/* Left Side - Image & Action Buttons */}
-                            <div className="w-full md:w-[45%] h-64 md:h-auto min-h-[320px] relative flex flex-col justify-end p-6 md:p-8">
-                                <img src={selectedProject.image} alt={selectedProject.title} className="absolute inset-0 w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-surface hidden md:block"></div>
-                                
-                                {/* Action Buttons overlay */}
-                                <div className="relative z-10 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 w-full mt-auto">
-                                    {selectedProject.live && selectedProject.live !== "#" && selectedProject.live !== "" && (
-                                        <a href={selectedProject.live} target="_blank" rel="noreferrer" className="flex-1 py-3 px-4 bg-accent text-primary font-bold rounded-lg text-center hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-lg text-sm">
-                                            <FaExternalLinkAlt size={14} /> Live Demo
-                                        </a>
-                                    )}
-                                    {selectedProject.github && selectedProject.github !== "#" && selectedProject.github !== "" && (
-                                        <a href={selectedProject.github} target="_blank" rel="noreferrer" className="flex-1 py-3 px-4 bg-black/40 backdrop-blur-md border border-white/20 text-white font-bold rounded-lg text-center hover:bg-white/10 transition-colors flex items-center justify-center gap-2 shadow-lg text-sm">
-                                            <FaGithub size={16} /> Source Code
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Right Side - Details */}
-                            <div className="w-full md:w-[55%] p-6 md:p-10 overflow-y-auto flex flex-col">
-                                <div className="mb-6 border-b border-white/10 pb-6">
-                                    <span className="px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-bold rounded-full mb-3 inline-block">{selectedProject.category}</span>
-                                    <h3 className="text-2xl md:text-3xl font-sans font-bold text-white mb-2">{selectedProject.title}</h3>
-                                </div>
-
-                                <div className="space-y-6 flex-grow pb-4">
-                                    <div>
-                                        <h4 className="text-white font-bold mb-2 flex items-center gap-2">The Problem</h4>
-                                        <p className="text-gray-400 text-sm leading-relaxed">{selectedProject.problem}</p>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold mb-2 flex items-center gap-2">The Solution</h4>
-                                        <p className="text-gray-400 text-sm leading-relaxed">{selectedProject.solution}</p>
-                                    </div>
-                                    
-                                    {selectedProject.details && (
-                                        <div>
-                                            <h4 className="text-white font-bold mb-2 flex items-center gap-2">Technical Details</h4>
-                                            <div className="text-gray-400 text-sm leading-relaxed space-y-2">
-                                                {selectedProject.details.split('\n\n').map((paragraph, idx) => {
-                                                    const boldParts = paragraph.split(/\*\*(.*?)\*\*/g);
-                                                    return (
-                                                        <p key={idx}>
-                                                            {boldParts.map((part, i) => i % 2 === 1 ? <strong key={i} className="text-gray-200">{part}</strong> : part)}
-                                                        </p>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div>
-                                        <h4 className="text-white font-bold mb-3 mt-4">Technologies</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {selectedProject.tech.map((t, i) => (
-                                                <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300 text-[11px] flex items-center gap-1.5 hover:bg-white/10 hover:text-accent transition-colors cursor-default">
-                                                    <FaCode size={10} className="text-accentGreen" /> {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
+    // Homepage section view
+    return (
+        <Section id="work" label="Selected work">
+            <Reveal>
+                <Filters active={filter} onChange={setFilter} />
+            </Reveal>
+            <ul className="mt-8">
+                {shown.map((p, i) => (
+                    <Row key={`${filter}-${p.id}`} project={p} index={i} onOpen={setOpen} />
+                ))}
+            </ul>
+            {showViewMore && list.length > shown.length && (
+                <Reveal>
+                    <Link to="/projects" className="group mt-8 inline-flex min-h-[44px] items-center gap-2 text-[15px] text-ink hover:text-lime">
+                        All projects
+                        <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
+                    </Link>
+                </Reveal>
+            )}
+            {open && <ProjectDialog project={open} onClose={close} />}
+        </Section>
     );
 };
 

@@ -1,96 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const links = [
+    { href: 'about', label: 'About' },
+    { href: 'work', label: 'Work' },
+    { href: 'experience', label: 'Experience' },
+    { href: 'contact', label: 'Contact' },
+];
+
+const Available = () => (
+    <span className="inline-flex h-7 items-center gap-2 rounded-full border border-line bg-surface px-3 text-[12px] text-body">
+        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-lime" />
+        <span className="hidden sm:inline">Available for work</span>
+        <span className="sm:hidden">Available</span>
+    </span>
+);
 
 const Navbar = () => {
-    const [nav, setNav] = useState(false);
+    const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-
-    const links = [
-        { id: 1, link: 'home' },
-        { id: 2, link: 'about' },
-        { id: 3, link: 'projects' },
-        { id: 4, link: 'experience' },
-        { id: 5, link: 'contact' },
-    ];
+    const [active, setActive] = useState('');
+    const { pathname } = useLocation();
+    const onProjectsPage = pathname.startsWith('/projects');
+    const base = onProjectsPage ? '/' : '';
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
+    // Underline the link of the section nearest the top of the viewport.
+    const current = onProjectsPage ? 'work' : active;
+    useEffect(() => {
+        if (onProjectsPage) return undefined;
+        const sections = links.map((l) => document.getElementById(l.href)).filter(Boolean);
+        if (!sections.length) return;
+        const io = new IntersectionObserver(
+            (entries) => {
+                const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+                if (hit) setActive(hit.target.id);
+                else if (window.scrollY < window.innerHeight * 0.5) setActive('');
+            },
+            { rootMargin: '-40% 0px -55% 0px' }
+        );
+        sections.forEach((s) => io.observe(s));
+        return () => io.disconnect();
+    }, [pathname, onProjectsPage]);
+
+    useEffect(() => {
+        document.body.style.overflow = open ? 'hidden' : '';
+        const onKey = (e) => e.key === 'Escape' && setOpen(false);
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [open]);
+
     return (
-        <nav className={`fixed w-full h-20 z-50 transition-all duration-300 ${scrolled ? 'bg-primary/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
-            <div className="flex justify-between items-center h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center">
-                    <h1 className="text-2xl tracking-tight cursor-pointer flex items-center group">
-                        <span className="font-bold text-gray-100 transition-colors duration-300 group-hover:text-white">Shafny</span>
-                        <span className="font-normal text-gray-500 ml-1.5 transition-colors duration-300 group-hover:text-gray-400">Hadhy</span>
-                    </h1>
-                </div>
+        <header
+            className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300 ${
+                scrolled || open ? 'border-line bg-bg/85 backdrop-blur-md' : 'border-transparent bg-bg/0'
+            }`}
+        >
+            <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-bg">
+                Skip to content
+            </a>
+            <nav aria-label="Primary" className="wrap flex h-16 items-center justify-between">
+                <a href={`${base}#top`} className="-my-2 flex min-h-[44px] items-center font-heading text-[19px] font-bold tracking-[-0.02em] text-white">
+                    Shafny Hadhy<span className="text-lime">.</span>
+                </a>
 
-                <ul className="hidden md:flex space-x-8">
-                    {links.map(({ id, link }) => (
-                        <li
-                            key={id}
-                            className="relative group cursor-pointer capitalize font-medium text-gray-300 hover:text-white transition-colors duration-300"
-                        >
-                            <Link to={link} smooth duration={500} offset={-80}>
-                                {link}
-                            </Link>
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                        </li>
-                    ))}
-                </ul>
-
-                <div
-                    onClick={() => setNav(!nav)}
-                    className="cursor-pointer z-50 text-gray-300 md:hidden hover:text-accent transition-colors"
-                >
-                    {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                </div>
-
-                <AnimatePresence>
-                    {nav && (
-                        <motion.div
-                            initial={{ opacity: 0, x: '100%' }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: '100%' }}
-                            transition={{ duration: 0.3 }}
-                            className="fixed top-0 left-0 w-full h-screen bg-surface flex flex-col justify-center items-center md:hidden"
-                        >
-                            <ul className="flex flex-col items-center space-y-6">
-                                {links.map(({ id, link }) => (
-                                    <li
-                                        key={id}
-                                        className="cursor-pointer capitalize text-2xl font-medium text-gray-300 hover:text-accent transition-colors"
+                <div className="hidden items-center gap-8 md:flex">
+                    <ul className="flex items-center gap-7">
+                        {links.map(({ href, label }) => {
+                            const on = current === href;
+                            return (
+                                <li key={href}>
+                                    <a
+                                        href={`${base}#${href}`}
+                                        aria-current={on ? 'true' : undefined}
+                                        className={`group relative flex h-16 items-center text-[14px] transition-colors duration-150 hover:text-white ${on ? 'text-white' : 'text-body'}`}
                                     >
-                                        <Link
-                                            onClick={() => setNav(false)}
-                                            to={link}
-                                            smooth
-                                            duration={500}
-                                            offset={-80}
-                                        >
-                                            {link}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-        </nav>
+                                        {/* Hover line: draws in from the left, leaves to the right. Hidden on the active link. */}
+                                        <span className={`nav-draw relative ${on ? 'nav-draw--off' : ''}`}>{label}</span>
+                                        {/* Active section: a still 2px lime bar at the bar's bottom edge. */}
+                                        {on && <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-lime" />}
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <Available />
+                </div>
+
+                <div className="flex items-center gap-3 md:hidden">
+                    <Available />
+                    <button
+                        type="button"
+                        onClick={() => setOpen(!open)}
+                        aria-expanded={open}
+                        aria-controls="mobile-menu"
+                        className="-mr-3 flex min-h-[44px] min-w-[44px] items-center justify-center px-3 text-[14px] font-medium text-white"
+                    >
+                        {open ? 'Close' : 'Menu'}
+                    </button>
+                </div>
+            </nav>
+
+            {open && (
+                <div id="mobile-menu" className="fixed inset-x-0 bottom-0 top-16 z-40 bg-bg md:hidden">
+                    <ul className="wrap flex flex-col pt-4">
+                        {links.map(({ href, label }) => (
+                            <li key={href} className="border-b border-line">
+                                <a
+                                    href={`${base}#${href}`}
+                                    onClick={() => setOpen(false)}
+                                    className="flex min-h-[56px] items-center font-heading text-[28px] font-semibold tracking-head text-ink"
+                                >
+                                    {label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </header>
     );
 };
 
