@@ -62,7 +62,30 @@
   }
 
   .btn {
-    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border px-5 text-[15px] font-medium transition-colors duration-150;
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border px-5 text-[15px] font-medium;
+    /* hover out: 120ms */
+    transition: transform 120ms cubic-bezier(.2, .8, .2, 1), background-color 120ms, border-color 120ms, color 120ms;
+  }
+
+  /* Step up 1px on hover: mouse/trackpad only, never on touch. */
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+      transform: translateY(-1px);
+      transition-duration: 150ms;
+    }
+  }
+
+  /* Press: 1px below rest, slightly smaller. Works for touch too. */
+  .btn:active {
+    transform: translateY(1px) scale(.985);
+    transition-duration: 90ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:active {
+      transform: none;
+    }
   }
 
   .btn-primary {
@@ -71,6 +94,59 @@
 
   .btn-outline {
     @apply btn border-line text-ink hover:border-[#3F3F46] hover:bg-surface active:bg-hover;
+  }
+
+  /* Nav word underline: a 1px line 4px under the word that draws left-to-right and leaves to the right. */
+  .nav-draw::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 120ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  .group:hover > .nav-draw::before,
+  .group:focus-visible > .nav-draw::before {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition-duration: 150ms;
+  }
+
+  .nav-draw--off::before {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-draw::before {
+      transition: none;
+    }
+  }
+
+  /* Photo zooms 1.03 inside a fixed frame: 600ms in, 400ms out. Mouse only. */
+  .photo-frame img {
+    transition: transform 400ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .photo-frame:hover img {
+      transform: scale(1.03);
+      transition-duration: 600ms;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-frame img {
+      transition: none;
+    }
+
+    .photo-frame:hover img {
+      transform: none;
+    }
   }
 
   .pill {

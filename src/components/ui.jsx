@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 const EASE = [0.22, 1, 0.36, 1];
 
 /** Fade-up once: 0.5s, 14px, ease-out. On load (hero) or when scrolled into view. Static under reduced motion. */
-export const Reveal = ({ as = 'div', children, className = '', delay = 0, onLoad = false, ...rest }) => {
+export const Reveal = ({ as = 'div', children, className = '', delay = 0, duration = 0.5, distance = 14, onLoad = false, ...rest }) => {
     const reduce = useReducedMotion();
     if (reduce) {
         const Plain = as;
@@ -15,9 +15,9 @@ export const Reveal = ({ as = 'div', children, className = '', delay = 0, onLoad
     return (
         <Tag
             className={className}
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: distance }}
             {...(onLoad ? { animate: target } : { whileInView: target, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
-            transition={{ duration: 0.5, ease: EASE, delay }}
+            transition={{ duration, ease: EASE, delay }}
             {...rest}
         >
             {children}

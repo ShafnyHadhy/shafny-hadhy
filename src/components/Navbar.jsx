@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const links = [
-    { href: 'work', label: 'Work' },
     { href: 'about', label: 'About' },
+    { href: 'work', label: 'Work' },
     { href: 'experience', label: 'Experience' },
     { href: 'contact', label: 'Contact' },
 ];
@@ -82,11 +82,12 @@ const Navbar = () => {
                                     <a
                                         href={`${base}#${href}`}
                                         aria-current={on ? 'true' : undefined}
-                                        className={`relative flex h-16 items-center text-[14px] transition-colors duration-150 hover:text-white after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-lime after:transition-opacity after:duration-150 ${
-                                            on ? 'text-white after:opacity-100' : 'text-body after:opacity-0'
-                                        }`}
+                                        className={`group relative flex h-16 items-center text-[14px] transition-colors duration-150 hover:text-white ${on ? 'text-white' : 'text-body'}`}
                                     >
-                                        {label}
+                                        {/* Hover line: draws in from the left, leaves to the right. Hidden on the active link. */}
+                                        <span className={`nav-draw relative ${on ? 'nav-draw--off' : ''}`}>{label}</span>
+                                        {/* Active section: a still 2px lime bar at the bar's bottom edge. */}
+                                        {on && <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-lime" />}
                                     </a>
                                 </li>
                             );

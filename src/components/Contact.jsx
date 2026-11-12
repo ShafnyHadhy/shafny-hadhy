@@ -31,12 +31,12 @@ const Contact = () => {
                 </p>
                 <a
                     href={`mailto:${emailAddress}`}
-                    className="mt-8 inline-block break-all py-1 font-heading text-[clamp(1.75rem,4.2vw,3.25rem)] font-semibold leading-[1.05] tracking-head text-ink underline decoration-transparent decoration-2 underline-offset-8 transition-colors duration-150 hover:decoration-lime"
+                    className="mt-8 inline-block break-all py-2 font-heading text-[clamp(1.75rem,4.2vw,3.25rem)] font-semibold leading-[1.05] tracking-head text-ink underline decoration-transparent decoration-2 underline-offset-8 transition-colors duration-150 hover:decoration-lime"
                 >
                     {emailAddress}
                 </a>
                 <div className="mt-6">
-                    <button type="button" onClick={copy} className="btn-outline min-h-[44px]" aria-live="polite">
+                    <button type="button" onClick={copy} className="btn-outline min-h-[44px] w-full sm:w-auto" aria-live="polite">
                         {copied ? 'Copied' : 'Copy email address'}
                     </button>
                 </div>
