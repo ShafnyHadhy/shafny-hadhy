@@ -14,7 +14,11 @@ const Home = () => {
 
   // Arriving from /projects with /#section: scroll once the section exists.
   useEffect(() => {
-    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+    if (hash) {
+      setTimeout(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
   }, [hash]);
 
   return (
@@ -30,8 +34,10 @@ const Home = () => {
 };
 
 const AllProjects = () => {
-  useEffect(() => window.scrollTo(0, 0), []);
-  return <Projects limit={0} showViewMore={false} showBackButton />;
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+  return <Projects isFullPage />;
 };
 
 // Smooth-scroll only for clicked in-page links; keyboard focus moves stay instant.

@@ -16,7 +16,7 @@ export const Reveal = ({ as = 'div', children, className = '', delay = 0, durati
         <Tag
             className={className}
             initial={{ opacity: 0, y: distance }}
-            {...(onLoad ? { animate: target } : { whileInView: target, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
+            {...(onLoad ? { animate: target } : { whileInView: target, viewport: { once: true, amount: 'some' } })}
             transition={{ duration, ease: EASE, delay }}
             {...rest}
         >

@@ -6,6 +6,7 @@ const items = [
         when: '05/2026 — Present',
         current: true,
         role: 'Associate Software Engineer',
+        company: 'IT Starter Pvt Ltd',
         where: 'Colombo, Sri Lanka',
         points: [
             'Building and enhancing Recall with Next.js, React (TypeScript), Laravel and MySQL.',
@@ -16,6 +17,7 @@ const items = [
     {
         when: '10/2025 — 04/2026',
         role: 'Software Engineer Intern',
+        company: 'IT Starter Pvt Ltd',
         where: 'Colombo, Sri Lanka',
         points: [
             'Designed and developed full-stack features with React and Laravel, integrating RESTful APIs and database-driven functionality.',
@@ -26,9 +28,11 @@ const items = [
     {
         when: '2023 — Present',
         role: 'BSc (Hons) in IT, Software Engineering',
-        where: 'SLIIT · CGPA 3.6+',
+        company: 'SLIIT',
+        where: 'CGPA 3.6+',
         points: [
             'Focusing on full-stack development, software architecture and modern development practices.',
+            'Data structures, algorithms and software engineering principles for building scalable applications.',
         ],
     },
 ];
@@ -44,7 +48,10 @@ const Experience = () => (
                     />
                     <p className="label">{it.when}</p>
                     <h3 className="mt-4 text-[22px] md:text-[24px]">{it.role}</h3>
-                    <p className="mt-2 text-[15px] text-body">{it.where}</p>
+                    <p className="mt-2 text-[15px] text-body">
+                        <span className="font-medium text-ink/70">{it.company}</span>
+                        {it.where && <span className="text-faint"> · {it.where}</span>}
+                    </p>
                     <ul className="mt-5 max-w-[42rem] space-y-3">
                         {it.points.map((p) => (
                             <li key={p} className="relative pl-5 text-[16px] before:absolute before:left-0 before:top-[0.8em] before:h-px before:w-2.5 before:bg-faint">
