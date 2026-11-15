@@ -103,10 +103,10 @@ const ProjectDialog = ({ project, onClose }) => {
                 aria-modal="true"
                 aria-labelledby="project-title"
                 onClick={(e) => e.stopPropagation()}
-                className="max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-lg border border-line bg-surface md:rounded-lg"
+                className="max-h-[92svh] w-full max-w-3xl lg:max-w-5xl xl:max-w-6xl overflow-y-auto rounded-t-lg border border-line bg-surface md:rounded-lg"
             >
                 {/* Modal Header */}
-                <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-surface px-6 py-4 md:px-8">
+                <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-surface px-6 py-4 md:px-8 lg:px-10">
                     <p className="label label-dash">{project.category}</p>
                     <button
                         ref={closeRef}
@@ -118,68 +118,99 @@ const ProjectDialog = ({ project, onClose }) => {
                     </button>
                 </div>
 
-                <div className="px-6 pb-10 pt-8 md:px-8">
-                    {/* Title & Eyebrow */}
-                    <h3 id="project-title" className="text-[28px] md:text-[36px] font-heading font-semibold text-ink leading-[1.1] tracking-head">
-                        {project.title}
-                    </h3>
-                    {project.eyebrow && (
-                        <p className="mt-2 text-[15px] text-body">{project.eyebrow}</p>
-                    )}
-
-                    {/* Screenshot if available */}
-                    {project.screenshot && (
-                        <img
-                            src={project.screenshot}
-                            alt={`${project.title} screenshot`}
-                            width="1440"
-                            height="900"
-                            loading="lazy"
-                            className="mt-6 aspect-[16/10] w-full rounded-md border border-line object-cover object-top"
-                        />
-                    )}
-
-                    {/* Structured Content matching system typography */}
-                    <div className="mt-8 space-y-8 border-t border-line pt-8">
-                        <div>
-                            <h4 className="label label-dash mb-2">Problem</h4>
-                            <p className="text-[16px] leading-[1.65] text-ink">{project.problem}</p>
-                        </div>
-
-                        <div>
-                            <h4 className="label label-dash mb-2">Solution</h4>
-                            <p className="text-[16px] leading-[1.65] text-ink">{project.solution}</p>
-                        </div>
-
-                        {project.details && (
+                <div className="px-6 pb-10 pt-8 md:px-8 lg:px-10 lg:py-10">
+                    {/* Responsive Grid: Vertical on mobile, Horizontal 2-columns on large screens */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-10">
+                        {/* Left Column on Desktop / Top Section on Mobile */}
+                        <div className="lg:col-span-5 flex flex-col justify-between">
                             <div>
-                                <h4 className="label label-dash mb-3">Technical details</h4>
-                                <Details text={project.details} />
-                            </div>
-                        )}
+                                <h3 id="project-title" className="text-[28px] md:text-[36px] font-heading font-semibold text-ink leading-[1.1] tracking-head">
+                                    {project.title}
+                                </h3>
+                                {project.eyebrow && (
+                                    <p className="mt-2 text-[15px] text-body">{project.eyebrow}</p>
+                                )}
 
-                        <div>
-                            <h4 className="label label-dash mb-3">Stack</h4>
-                            <div className="flex flex-wrap gap-1.5">
-                                {project.tech.map((t) => (
-                                    <span key={t} className="pill">{t}</span>
-                                ))}
+                                {project.screenshot && (
+                                    <img
+                                        src={project.screenshot}
+                                        alt={`${project.title} screenshot`}
+                                        width="1440"
+                                        height="900"
+                                        loading="lazy"
+                                        className="mt-6 aspect-[16/10] w-full rounded-md border border-line object-cover object-top"
+                                    />
+                                )}
+
+                                {/* Desktop Stack: Displayed in left column */}
+                                <div className="hidden lg:block mt-8">
+                                    <h4 className="label label-dash mb-3">Stack</h4>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {project.tech.map((t) => (
+                                            <span key={t} className="pill">{t}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Desktop Actions: Displayed at bottom of left column */}
+                            <div className="hidden lg:flex flex-col gap-3 border-t border-line pt-6 mt-8">
+                                {hasLink(project.live) && (
+                                    <a href={project.live} target="_blank" rel="noreferrer" className="btn-primary group min-h-[44px]">
+                                        Open live demo <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
+                                    </a>
+                                )}
+                                {hasLink(project.github) && (
+                                    <a href={project.github} target="_blank" rel="noreferrer" className="btn-outline min-h-[44px]">
+                                        <GitHubIcon /> View source
+                                    </a>
+                                )}
                             </div>
                         </div>
-                    </div>
 
-                    {/* Actions */}
-                    <div className="mt-10 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row">
-                        {hasLink(project.live) && (
-                            <a href={project.live} target="_blank" rel="noreferrer" className="btn-primary group min-h-[44px]">
-                                Open live demo <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
-                            </a>
-                        )}
-                        {hasLink(project.github) && (
-                            <a href={project.github} target="_blank" rel="noreferrer" className="btn-outline min-h-[44px]">
-                                <GitHubIcon /> View source
-                            </a>
-                        )}
+                        {/* Right Column on Desktop / Content on Mobile */}
+                        <div className="lg:col-span-7 space-y-8 border-t border-line pt-8 mt-8 lg:mt-0 lg:border-t-0 lg:pt-0 lg:border-l lg:border-line lg:pl-10">
+                            <div>
+                                <h4 className="label label-dash mb-2">Problem</h4>
+                                <p className="text-[16px] leading-[1.65] text-ink">{project.problem}</p>
+                            </div>
+
+                            <div>
+                                <h4 className="label label-dash mb-2">Solution</h4>
+                                <p className="text-[16px] leading-[1.65] text-ink">{project.solution}</p>
+                            </div>
+
+                            {project.details && (
+                                <div>
+                                    <h4 className="label label-dash mb-3">Technical details</h4>
+                                    <Details text={project.details} />
+                                </div>
+                            )}
+
+                            {/* Mobile Stack: Kept in vertical reading order */}
+                            <div className="lg:hidden">
+                                <h4 className="label label-dash mb-3">Stack</h4>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {project.tech.map((t) => (
+                                        <span key={t} className="pill">{t}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Mobile Actions: Kept in vertical reading order */}
+                            <div className="lg:hidden flex flex-col gap-3 border-t border-line pt-6 sm:flex-row">
+                                {hasLink(project.live) && (
+                                    <a href={project.live} target="_blank" rel="noreferrer" className="btn-primary group min-h-[44px]">
+                                        Open live demo <Arrow className="transition-transform duration-150 group-hover:translate-x-1" />
+                                    </a>
+                                )}
+                                {hasLink(project.github) && (
+                                    <a href={project.github} target="_blank" rel="noreferrer" className="btn-outline min-h-[44px]">
+                                        <GitHubIcon /> View source
+                                    </a>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

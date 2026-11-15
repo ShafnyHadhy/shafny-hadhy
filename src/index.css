@@ -149,6 +149,18 @@
     }
   }
 
+  /* Closing name: sized from the viewport so it runs edge to edge of the content width
+     (the name is ~6.1em wide in Inter Tight 700 at -0.045em). Capped at the 1200px page width. */
+  .close-name {
+    font-size: min(calc((100vw - 48px) / 6.15), 182px);
+  }
+
+  @media (min-width: 768px) {
+    .close-name {
+      font-size: min(calc((100vw - 80px) / 6.15), 182px);
+    }
+  }
+
   .pill {
     @apply inline-flex items-center rounded-full border border-line bg-hover px-2.5 py-0.5 text-[12px] leading-5 text-body;
   }

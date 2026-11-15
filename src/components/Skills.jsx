@@ -3,8 +3,8 @@ import { Reveal, Section } from './ui';
 
 const toolkit = [
     { group: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind'] },
-    { group: 'Backend', items: ['Laravel', 'Node.js', 'MySQL', 'REST APIs'] },
-    { group: 'Tools', items: ['Git', 'Docker', 'Vercel', 'Figma'] },
+    { group: 'Backend', items: ['Laravel', 'Node.js', 'Java', 'Python', 'REST APIs'] },
+    { group: 'Database & Tools', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Docker', 'Vercel'] },
 ];
 
 const Skills = () => (
