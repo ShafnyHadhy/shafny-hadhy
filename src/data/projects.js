@@ -4,7 +4,7 @@ export const projects = [
         title: "Atlas Workflow Automation",
         does: "Visual workflow platform for building, running and monitoring business automations.",
         solved: "Teams needed repeatable workflows without a custom engineering project for each process.",
-        category: "Platform",
+        category: "AI Workflow",
         eyebrow: "Multi-tenant product",
         problem: "Businesses need repeatable workflows without turning every process into a custom engineering project.",
         solution: "A visual workflow platform for building, executing, and monitoring reliable business automations.",
@@ -191,4 +191,4 @@ export const projects = [
     }
 ];
 
-export const categories = ["All", "Platform", "AI Workflow", "Web App", "Mobile App"];
+export const categories = ["All", "AI Workflow", "Web App", "Mobile App"];
