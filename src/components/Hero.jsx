@@ -52,8 +52,8 @@ const Hero = () => (
 
             <Reveal onLoad delay={AFTER} duration={0.52} distance={12}>
                 <p className="mt-8 max-w-[38rem] text-[17px] md:text-[18px]">
-                    Associate Software Engineer based in Colombo, Sri Lanka. Currently building Recall with Next.js,
-                    React, Laravel and MySQL. Focused on resilient APIs and clean, shippable UI.
+                    Associate Software Engineer based in Colombo, Sri Lanka. Currently building a full-stack EdTech
+                    product with Next.js, React, Laravel and MySQL. Focused on resilient APIs and clean, shippable UI.
                 </p>
             </Reveal>
 
